@@ -1,0 +1,567 @@
+Town,zipcode,eohhs,eohhs_name,town_population
+Athol,01331,1,Western,11732
+Westfield,01085,1,Western,41204
+Shelburne,01370,1,Western,1837
+Hinsdale,01235,1,Western,1911
+Dartmouth,02747,5,Southeast,34188
+Rehoboth,02769,5,Southeast,12385
+Williamstown,01267,1,Western,7434
+Blandford,01008,1,Western,1252
+Amherst,01002,1,Western,39924
+Sandisfield,01255,1,Western,891
+North Adams,01247,1,Western,12730
+Plymouth,02360,5,Southeast,61528
+Great Barrington,01230,1,Western,6945
+Becket,01223,1,Western,1716
+Granville,01034,1,Western,1611
+Middleborough,02346,5,Southeast,25463
+Petersham,01366,1,Western,1250
+Pittsfield,01201,1,Western,42142
+Charlemont,01339,1,Western,1233
+Colrain,01340,1,Western,1661
+Westport,02790,5,Southeast,16034
+Belchertown,01007,1,Western,15098
+Lanesborough,01237,1,Western,2940
+Hubbardston,01452,2,Central,4829
+Royalston,01368,1,Western,1277
+Easthampton,01027,1,Western,15829
+Conway,01341,1,Western,1873
+Spencer,01562,2,Central,11935
+Sutton,01590,2,Central,9582
+Williamsburg,01096,1,Western,2466
+Groton,01450,2,Central,11325
+Cummington,01026,1,Western,874
+Chilmark,02535,5,Southeast,922
+West Stockbridge,01266,1,Western,1257
+Concord,01742,4,Metro West,18918
+New Marlborough,01259,1,Western,1458
+Ware,01082,1,Western,9711
+Oak Bluffs,02568,5,Southeast,4667
+Carver,02330,5,Southeast,11767
+Douglas,01516,2,Central,9038
+Ashburnham,01430,2,Central,6348
+Sheffield,01257,1,Western,3129
+Orange,01364,1,Western,7582
+Warwick,01378,1,Western,769
+Princeton,01541,2,Central,3488
+Westminster,01473,2,Central,7997
+Nantucket,02554,5,Southeast,11399
+Rutland,01543,2,Central,8938
+Savoy,01256,1,Western,675
+Rochester,02770,5,Southeast,5687
+Northfield,01360,1,Western,2958
+Bernardston,01337,1,Western,2090
+Brimfield,01010,2,Central,3680
+Taunton,02780,5,Southeast,57464
+Monson,01057,1,Western,8787
+Barre,01005,2,Central,5578
+Winchendon,01475,2,Central,10905
+Charlton,01507,2,Central,13713
+Foxborough,02035,4,Metro West,18399
+Bolton,01740,2,Central,5426
+Southbridge,01550,2,Central,16878
+Townsend,01469,2,Central,9506
+Templeton,01468,2,Central,8138
+Mashpee,02649,5,Southeast,14229
+Lee,01238,1,Western,5664
+Andover,01810,3,Northeast,36356
+Worthington,01098,1,Western,1175
+Ipswich,01938,3,Northeast,14074
+Wrentham,02093,4,Metro West,12023
+Wilbraham,01095,1,Western,14689
+Methuen,01844,3,Northeast,50706
+Lenox,01240,1,Western,4944
+Deerfield,01373,1,Western,4991
+Marlborough,01752,4,Metro West,39597
+Dudley,01571,2,Central,11773
+North Brookfield,01535,2,Central,4792
+Harvard,01451,2,Central,6620
+Shrewsbury,01545,2,Central,38526
+Westborough,01581,4,Metro West,19144
+Upton,01568,2,Central,8065
+Oakham,01068,2,Central,1957
+Dracut,01826,3,Northeast,31634
+Norwell,02061,4,Metro West,11153
+Oxford,01540,2,Central,14009
+Tewksbury,01876,3,Northeast,31178
+New Braintree,01531,2,Central,1024
+Warren,01083,2,Central,5222
+Holden,01520,2,Central,19303
+Mansfield,02048,5,Southeast,24470
+Wellfleet,02667,5,Southeast,2724
+Acton,01720,4,Metro West,23662
+Montague,01351,1,Western,8212
+Bourne,02542,5,Southeast,19762
+Otis,01253,1,Western,1539
+Sterling,01564,2,Central,8174
+Southwick,01077,1,Western,9740
+Westford,01886,3,Northeast,24817
+Fitchburg,01420,2,Central,40638
+Cheshire,01225,1,Western,3129
+Hardwick,01037,2,Central,3057
+Uxbridge,01569,2,Central,14195
+Norton,02766,5,Southeast,19948
+Marshfield,02050,5,Southeast,25967
+Huntington,01050,1,Western,2169
+Southampton,01073,1,Western,6171
+Windsor,01270,1,Western,866
+Granby,01033,1,Western,6291
+Edgartown,02539,5,Southeast,4348
+Bridgewater,02324,5,Southeast,27619
+Ludlow,01056,1,Western,21233
+Greenfield,01301,1,Western,17258
+Sturbridge,01566,2,Central,9597
+Wendell,01379,1,Western,878
+Hopkinton,01748,4,Metro West,18470
+Lunenburg,01462,2,Central,11736
+Rowe,01367,1,Western,389
+Attleboro,02703,5,Southeast,45237
+North Andover,01845,3,Northeast,31188
+Ashfield,01330,1,Western,1717
+Falmouth,02536,5,Southeast,30993
+Gloucester,01930,3,Northeast,30430
+Franklin,02038,2,Central,34087
+Pembroke,02359,5,Southeast,18509
+Pepperell,01463,2,Central,12114
+Swansea,02777,5,Southeast,16834
+West Brookfield,01585,2,Central,3727
+Adams,01220,1,Western,8010
+Dartmouth,02748,5,Southeast,34188
+Lancaster,01523,2,Central,8082
+Leominster,01453,2,Central,41716
+Ashby,01431,2,Central,3219
+Chester,01011,1,Western,1369
+Gardner,01440,2,Central,20683
+Duxbury,02332,5,Southeast,15921
+Mount Washington,01258,1,Western,157
+Monterey,01245,1,Western,924
+Brewster,02631,5,Southeast,9775
+Shutesbury,01072,1,Western,1754
+Sudbury,01776,4,Metro West,19655
+Hadley,01035,1,Western,5342
+Boxford,01921,3,Northeast,8332
+Sharon,02067,4,Metro West,18895
+Raynham,02767,5,Southeast,14470
+Leverett,01054,1,Western,1837
+Truro,02652,5,Southeast,2008
+Holbrook,02343,5,Southeast,11033
+Rockport,01966,3,Northeast,7282
+Clinton,01510,2,Central,14000
+Wellesley,02481,4,Metro West,28670
+Springfield,01104,1,Western,153606
+Yarmouth,02664,5,Southeast,23203
+Wareham,02538,5,Southeast,22745
+Barnstable,02655,5,Southeast,44477
+Worcester,01604,2,Central,185428
+Whitman,02382,5,Southeast,15216
+Montague,01349,1,Western,8212
+Sandwich,02644,5,Southeast,20169
+Lexington,02420,4,Metro West,33132
+Stoneham,02180,3,Northeast,24126
+Winchester,01890,4,Metro West,22799
+Revere,02151,6,Boston,53073
+Chicopee,01013,1,Western,55126
+Waltham,02451,4,Metro West,62495
+Worcester,01605,2,Central,185428
+Oxford,01537,2,Central,14009
+Worcester,01606,2,Central,185428
+Holyoke,01040,1,Western,40117
+Hingham,02043,4,Metro West,24679
+Wakefield,01880,3,Northeast,27045
+Weymouth,02190,4,Metro West,57746
+Lowell,01852,3,Northeast,110997
+Goshen,01032,1,Western,1059
+Somerset,02726,5,Southeast,18129
+Hatfield,01088,1,Western,3251
+Worcester,01602,2,Central,185428
+Dennis,02638,5,Southeast,13871
+Fall River,02721,5,Southeast,89541
+Barnstable,02635,5,Southeast,44477
+New Bedford,02740,5,Southeast,95363
+Springfield,01109,1,Western,153606
+Hopedale,01747,2,Central,5951
+Maynard,01754,4,Metro West,11336
+Cummington,01026,1,Western,874
+Chicopee,01022,1,Western,55126
+Newton,02459,4,Metro West,88414
+Malden,02148,3,Northeast,60470
+Bourne,02559,5,Southeast,19762
+Millville,01529,2,Central,3257
+Plainfield,01070,1,Western,661
+Canton,02021,4,Metro West,23805
+Kingston,02364,5,Southeast,13863
+Holliston,01746,4,Metro West,14912
+Bellingham,02019,2,Central,17270
+Boylston,01505,2,Central,4712
+Northborough,01532,4,Metro West,15109
+Wellesley,02482,4,Metro West,28670
+Lynn,01905,3,Northeast,94299
+Chelmsford,01863,3,Northeast,35391
+Heath,01346,1,Western,695
+Worcester,01603,2,Central,185428
+Melrose,02176,3,Northeast,28016
+Belmont,02478,4,Metro West,26116
+Montague,01376,1,Western,8212
+Northampton,01053,1,Western,28451
+Avon,02322,5,Southeast,4549
+Harvard,01434,2,Central,6620
+Marblehead,01945,3,Northeast,20555
+Hancock,01237,1,Western,696
+Barnstable,02630,5,Southeast,44477
+Falmouth,02556,5,Southeast,30993
+Deerfield,01342,1,Western,4991
+Hampden,01036,1,Western,5177
+Dalton,01226,1,Western,6525
+Freetown,02717,5,Southeast,9394
+Wareham,02571,5,Southeast,22745
+Bourne,02532,5,Southeast,19762
+Berkley,02779,5,Southeast,6851
+Scituate,02066,4,Metro West,18924
+Brookfield,01506,2,Central,3452
+Peabody,01960,3,Northeast,53070
+Seekonk,02771,5,Southeast,15770
+Russell,01071,1,Western,1792
+North Attleborough,02760,5,Southeast,29364
+Acushnet,02743,5,Southeast,10625
+Chelmsford,01824,3,Northeast,35391
+Stow,01775,4,Metro West,7234
+Mendon,01756,2,Central,6223
+Harwich,02645,5,Southeast,12142
+Walpole,02081,4,Metro West,25200
+Northampton,01062,1,Western,28451
+Rowley,01969,3,Northeast,6473
+Newbury,01951,3,Northeast,7148
+Tyngsborough,01879,3,Northeast,12527
+East Bridgewater,02333,5,Southeast,14526
+West Springfield,01089,1,Western,28517
+Framingham,01701,4,Metro West,74416
+Sandwich,02563,5,Southeast,20169
+Halifax,02338,5,Southeast,7896
+Mattapoisett,02739,5,Southeast,6401
+Weston,02493,4,Metro West,12124
+Leicester,01524,2,Central,11341
+Littleton,01460,4,Metro West,10227
+Wilmington,01887,4,Metro West,23445
+South Hadley,01075,1,Western,17625
+Billerica,01821,3,Northeast,43367
+Huntington,01050,1,Western,2169
+Barnstable,02668,5,Southeast,44477
+Freetown,02702,5,Southeast,9394
+Sherborn,01770,4,Metro West,4335
+Shirley,01464,2,Central,7636
+Orleans,02653,5,Southeast,5788
+Wayland,01778,4,Metro West,13835
+Holden,01522,2,Central,19303
+Natick,01760,4,Metro West,36050
+Fall River,02720,5,Southeast,89541
+West Bridgewater,02379,5,Southeast,7281
+Hanover,02339,5,Southeast,14570
+Paxton,01612,2,Central,4963
+Milford,01757,2,Central,29101
+Norfolk,02056,4,Metro West,12003
+Hanson,02341,5,Southeast,10914
+Salisbury,01952,3,Northeast,9534
+Carlisle,01741,4,Metro West,5252
+Southborough,01772,4,Metro West,10208
+Dover,02030,4,Metro West,6127
+Wales,01081,2,Central,1874
+Plympton,02367,5,Southeast,2987
+Sunderland,01375,1,Western,3629
+Stockbridge,01262,1,Western,1890
+Hamilton,01982,3,Northeast,8051
+Easton,02375,5,Southeast,25105
+Beverly,01915,3,Northeast,42174
+West Boylston,01583,2,Central,8077
+Medfield,02052,4,Metro West,12955
+Gill,01354,1,Western,1465
+Dunstable,01827,3,Northeast,3403
+Chesterfield,01012,1,Western,1249
+Auburn,01501,2,Central,16766
+Stoughton,02072,5,Southeast,28915
+Millbury,01527,2,Central,13947
+East Longmeadow,01028,1,Western,16192
+Woburn,01801,4,Metro West,40228
+Holland,01521,2,Central,2482
+Ashland,01721,4,Metro West,17807
+Northampton,01060,1,Western,28451
+Brockton,02301,5,Southeast,95708
+Chicopee,01020,1,Western,55126
+Fairhaven,02719,5,Southeast,16078
+Middleton,01949,3,Northeast,10110
+Webster,01570,2,Central,16949
+Erving,01344,1,Western,1750
+Braintree,02184,4,Metro West,37190
+Haverhill,01830,3,Northeast,64014
+Richmond,01254,1,Western,1416
+Easton,02356,5,Southeast,25105
+Eastham,02642,5,Southeast,4906
+Lincoln,01773,4,Metro West,7052
+West Newbury,01985,3,Northeast,4714
+Chester,01011,1,Western,1369
+Danvers,01923,3,Northeast,27549
+Essex,01929,3,Northeast,3799
+Truro,02666,5,Southeast,2008
+North Reading,01864,3,Northeast,15865
+Gosnold,02713,5,Southeast,75
+Marion,02738,5,Southeast,5188
+Tyringham,01264,1,Western,312
+Bedford,01730,4,Metro West,14123
+Milton,02186,4,Metro West,27593
+Amesbury,01913,3,Northeast,17532
+Georgetown,01833,3,Northeast,8768
+Agawam,01001,1,Western,28613
+Falmouth,02540,5,Southeast,30993
+Agawam,01030,1,Western,28613
+Quincy,02169,4,Metro West,94470
+Sandwich,02537,5,Southeast,20169
+Millis,02054,4,Metro West,8310
+Hudson,01749,4,Metro West,19864
+Burlington,01803,4,Metro West,28627
+Chatham,02633,5,Southeast,5982
+Haverhill,01832,3,Northeast,64014
+Hinsdale,01235,1,Western,1911
+Townsend,01474,2,Central,9506
+Plainville,02762,4,Metro West,9293
+Topsfield,01983,3,Northeast,6641
+Nantucket,02564,5,Southeast,11399
+Medway,02053,2,Central,13479
+Templeton,01436,2,Central,8138
+Dighton,02764,5,Southeast,7967
+Saugus,01906,3,Northeast,28361
+Blackstone,01504,2,Central,9288
+Westwood,02090,4,Metro West,16400
+Dighton,02715,5,Southeast,7967
+Grafton,01519,2,Central,18883
+Randolph,02368,4,Metro West,34362
+Sturbridge,01518,2,Central,9597
+Williamsburg,01039,1,Western,2466
+Florida,01343,1,Western,715
+Norwood,02062,4,Metro West,29725
+Taunton,02718,5,Southeast,57464
+Grafton,01536,2,Central,18883
+Ayer,01432,2,Central,8196
+Brockton,02302,5,Southeast,95708
+Hatfield,01038,1,Western,3251
+Boxborough,01719,4,Metro West,5793
+New Bedford,02745,5,Southeast,95363
+Lynnfield,01940,3,Northeast,12999
+Cohasset,02025,4,Metro West,8548
+East Brookfield,01515,2,Central,2210
+Williamsburg,01039,1,Western,2466
+Abington,02351,5,Southeast,16668
+Rockland,02370,5,Southeast,17986
+Provincetown,02657,5,Southeast,2961
+Reading,01867,3,Northeast,25400
+Northbridge,01534,2,Central,16679
+Yarmouth,02673,5,Southeast,23203
+Lexington,02421,4,Metro West,33132
+Longmeadow,01106,1,Western,15705
+Wareham,02576,5,Southeast,22745
+Dennis,02660,5,Southeast,13871
+Groveland,01834,3,Northeast,6849
+Needham,02492,4,Metro West,31388
+Barnstable,02648,5,Southeast,44477
+Barnstable,02601,5,Southeast,44477
+Williamsburg,01096,1,Western,2466
+Billerica,01862,3,Northeast,43367
+Ware,01082,1,Western,9711
+Great Barrington,01236,1,Western,6945
+Newburyport,01950,3,Northeast,18289
+Weymouth,02188,4,Metro West,57746
+North Adams,01247,1,Western,12730
+Blandford,01008,1,Western,1252
+Salem,01970,3,Northeast,43226
+Wenham,01984,3,Northeast,5278
+Haverhill,01835,3,Northeast,64014
+Northbridge,01588,2,Central,16679
+Manchester,01944,3,Northeast,5434
+Montague,01347,1,Western,8212
+Taunton,02718,5,Southeast,57464
+Malden,02148,3,Northeast,60470
+Ayer,01432,2,Central,8196
+Lynn,01904,3,Northeast,94299
+Chesterfield,01084,1,Western,1249
+Leicester,01542,2,Central,11341
+Weymouth,02189,4,Metro West,57746
+Springfield,01108,1,Western,153606
+Watertown,02472,4,Metro West,35939
+Lowell,01854,3,Northeast,110997
+Framingham,01702,4,Metro West,74416
+Yarmouth,02675,5,Southeast,23203
+Newbury,01922,3,Northeast,7148
+Merrimac,01860,3,Northeast,6960
+Medford,02155,3,Northeast,57341
+Barnstable,02632,5,Southeast,44477
+Lawrence,01841,3,Northeast,80028
+Swampscott,01907,3,Northeast,15298
+Dennis,02639,5,Southeast,13871
+Hull,02045,4,Metro West,10475
+Weymouth,02191,4,Metro West,57746
+Falmouth,02543,5,Southeast,30993
+Brimfield,01010,2,Central,3680
+Waltham,02452,4,Metro West,62495
+Worcester,01609,2,Central,185428
+Wendell,01380,1,Western,878
+Waltham,02453,4,Metro West,62495
+Springfield,01118,1,Western,153606
+Springfield,01129,1,Western,153606
+Leicester,01611,2,Central,11341
+Springfield,01119,1,Western,153606
+Everett,02149,3,Northeast,46451
+Lowell,01851,3,Northeast,110997
+Lawrence,01843,3,Northeast,80028
+Sheffield,01222,1,Western,3129
+Arlington,02474,4,Metro West,45531
+Grafton,01560,2,Central,18883
+Warren,01092,2,Central,5222
+Cambridge,02138,4,Metro West,118927
+Needham,02494,4,Metro West,31388
+Newton,02467,4,Metro West,88414
+Becket,01223,1,Western,1716
+Harwich,02646,5,Southeast,12142
+Bourne,02561,5,Southeast,19762
+Worcester,01607,2,Central,185428
+Springfield,01151,1,Western,153606
+Quincy,02171,4,Metro West,94470
+Brookline,02445,6,Boston,59121
+Lynn,01902,3,Northeast,94299
+Bourne,02562,5,Southeast,19762
+Somerset,02725,5,Southeast,18129
+Walpole,02032,4,Metro West,25200
+Dennis,02670,5,Southeast,13871
+Chatham,02659,5,Southeast,5982
+Chelsea,02150,6,Boston,39690
+Buckland,01338,1,Western,1850
+Worcester,01610,2,Central,185428
+Arlington,02476,4,Metro West,45531
+Newton,02465,4,Metro West,88414
+Bourne,02534,5,Southeast,19762
+Amherst,01002,1,Western,39924
+Fall River,02724,5,Southeast,89541
+Newton,02466,4,Metro West,88414
+Chatham,02650,5,Southeast,5982
+Newton,02460,4,Metro West,88414
+New Bedford,02744,5,Southeast,95363
+Otis,01029,1,Western,1539
+Barre,01074,2,Central,5578
+New Salem,01355,1,Western,1021
+Lakeville,02347,5,Southeast,11561
+Palmer,01069,1,Western,12232
+Hardwick,01031,2,Central,3057
+Newton,02461,4,Metro West,88414
+Somerville,02145,4,Metro West,81360
+Lowell,01850,3,Northeast,110997
+Berlin,01503,2,Central,3240
+Dedham,02026,4,Metro West,25219
+Bourne,02532,5,Southeast,19762
+Brookline,02446,6,Boston,59121
+North Attleborough,02763,5,Southeast,29364
+Springfield,01105,1,Western,153606
+Bedford,01731,4,Metro West,14123
+Amherst,01003,1,Western,39924
+Somerville,02144,4,Metro West,81360
+Cambridge,02140,4,Metro West,118927
+Springfield,01128,1,Western,153606
+Nahant,01908,3,Northeast,3513
+Westport,02791,5,Southeast,16034
+Dennis,02641,5,Southeast,13871
+Walpole,02071,4,Metro West,25200
+Plainfield,01070,1,Western,661
+Beverly,01965,3,Northeast,42174
+Barnstable,02647,5,Southeast,44477
+Barnstable,02637,5,Southeast,44477
+Cambridge,02141,4,Metro West,118927
+Harvard,01434,2,Central,6620
+Newton,02462,4,Metro West,88414
+Newton,02467,4,Metro West,88414
+Westminster,01441,2,Central,7997
+Lee,01260,1,Western,5664
+Lawrence,01840,3,Northeast,80028
+Newton,02464,4,Metro West,88414
+Wareham,02558,5,Southeast,22745
+Worcester,01608,2,Central,185428
+Springfield,01103,1,Western,153606
+Cambridge,02142,4,Metro West,118927
+Lynn,01901,3,Northeast,94299
+Wellfleet,02663,5,Southeast,2724
+Hatfield,01066,1,Western,3251
+Hardwick,01094,2,Central,3057
+Marshfield,02020,5,Southeast,25967
+Lanesborough,01224,1,Western,2940
+Southborough,01745,4,Metro West,10208
+Hanson,02350,5,Southeast,10914
+Bourne,02553,5,Southeast,19762
+Easton,02357,5,Southeast,25105
+Oak Bluffs,02557,5,Southeast,4667
+Acton,01718,4,Metro West,23662
+Ware,01082,1,Western,9711
+Harwich,02661,5,Southeast,12142
+Lenox,01242,1,Western,4944
+Templeton,01438,2,Central,8138
+Barnstable,02672,5,Southeast,44477
+Palmer,01009,1,Western,12232
+Northampton,01063,1,Western,28451
+Lancaster,01561,2,Central,8082
+Revere,02151,6,Boston,53073
+Scituate,02047,4,Metro West,18924
+New Bedford,02746,5,Southeast,95363
+Harwich,02671,5,Southeast,12142
+Newton,02467,4,Metro West,88414
+Cambridge,02139,4,Metro West,118927
+Whately,01093,1,Western,1567
+Quincy,02170,4,Metro West,94470
+Monroe,01350,1,Western,115
+Newton,02458,4,Metro West,88414
+Palmer,01080,1,Western,12232
+Newton,02468,4,Metro West,88414
+Springfield,01107,1,Western,153606
+Somerville,02143,4,Metro West,81360
+Fall River,02723,5,Southeast,89541
+Winthrop,02152,6,Boston,18544
+Boston,02163,6,Boston,692600
+Boston,02135,6,Boston,692600
+Boston,02134,6,Boston,692600
+Boston,02129,6,Boston,692600
+Boston,02108,6,Boston,692600
+Boston,02114,6,Boston,692600
+Boston,02116,6,Boston,692600
+Boston,02199,6,Boston,692600
+Boston,02109,6,Boston,692600
+Boston,02110,6,Boston,692600
+Boston,02103,6,Boston,692600
+Boston,02113,6,Boston,692600
+Boston,02128,6,Boston,692600
+Boston,02121,6,Boston,692600
+Boston,02125,6,Boston,692600
+Boston,02122,6,Boston,692600
+Boston,02124,6,Boston,692600
+Boston,02115,6,Boston,692600
+Boston,02215,6,Boston,692600
+Boston,02136,6,Boston,692600
+Boston,02130,6,Boston,692600
+Boston,02126,6,Boston,692600
+Boston,02131,6,Boston,692600
+Boston,02119,6,Boston,692600
+Boston,02120,6,Boston,692600
+Boston,02127,6,Boston,692600
+Boston,02210,6,Boston,692600
+Boston,02111,6,Boston,692600
+Boston,02118,6,Boston,692600
+Boston,02132,6,Boston,692600
+Alford,01266,1,Western,488
+Aquinnah,02535,5,Southeast,320
+Clarksburg,01247,1,Western,1638
+Egremont,01230,1,Western,1205
+Hawley,01339,1,Western,334
+Leyden,01337,1,Western,715
+Middlefield,01243,1,Western,534
+Montgomery,01050,1,Western,866
+New Ashford,01237,1,Western,223
+Pelham,01002,1,Western,1313
+Peru,01235,1,Western,834
+Phillipston,01331,1,Western,1746
+Tisbury,02568,5,Southeast,4096
+Tolland,01034,1,Western,508
+Washington,01223,1,Western,541
+West Tisbury,02575,5,Southeast,2904
+Westhampton,01027,1,Western,1637
