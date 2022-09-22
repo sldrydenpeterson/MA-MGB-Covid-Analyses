@@ -1,0 +1,539 @@
+Town,zipcode,population,SVI_overall_quartile,SVI_SES_quartile,priority_change
+Medford,02155,84322,2,2,No Change
+Dorchester Codman,02124,71852,4,4,No Change
+Worcester,01604,71491,3,3,No Change
+Malden,02148,65293,3,3,No Change
+Lynn,01902,64594,4,4,No Change
+Fenway,02215,64498,3,3,No Change
+Brockton,02301,62929,4,4,No Change
+New Bedford,02740,62712,4,4,No Change
+Cambridge,02138,61836,2,2,No Change
+Quincy,02169,60981,3,3,No Change
+Lawrence,01841,60299,4,4,No Change
+Pittsfield,01201,60128,3,3,No Change
+Revere,02151,59479,4,3,Overall gives higher priority
+Plymouth,02360,59331,2,2,No Change
+Watertown,02472,57490,2,2,No Change
+Taunton,02780,56963,3,3,No Change
+Cambridge,02139,55969,2,2,No Change
+Allston Brighton,02135,54669,3,3,No Change
+Fenway,02115,54474,3,3,No Change
+Jamaica Plain,02130,53755,3,3,No Change
+Peabody,01960,52865,3,3,No Change
+Dorchester Codman,02122,52407,3,3,No Change
+Attleboro,02703,51377,3,3,No Change
+Newton,02467,51089,2,1,Overall gives higher priority
+Worcester,01610,50566,4,4,No Change
+Methuen,01844,50019,3,3,No Change
+Mattapan,02126,49817,4,4,No Change
+Roslindale,02131,49743,3,3,No Change
+Leominster,01453,49622,3,3,No Change
+Everett,02149,49068,4,4,No Change
+Westfield,01085,48728,3,3,No Change
+Lowell,01854,48235,4,4,No Change
+East Boston,02128,46927,4,4,No Change
+Woburn,01801,46820,2,2,No Change
+Roxbury,02119,46674,4,4,No Change
+Fitchburg,01420,44927,4,4,No Change
+Amherst,01002,44677,3,3,No Change
+Hyde Park,02136,44462,4,3,Overall gives higher priority
+Worcester,01606,44387,3,3,No Change
+Framingham,01702,43758,3,3,No Change
+Worcester,01609,43663,3,3,No Change
+South Boston,02127,43489,2,2,No Change
+West Roxbury,02132,43428,3,2,Overall gives higher priority
+Worcester,01605,43392,4,4,No Change
+Brookline,02445,43384,2,1,Overall gives higher priority
+Dorchester Uphams,02125,43351,4,4,No Change
+Worcester,01602,43306,3,3,No Change
+Salem,01970,43302,3,3,No Change
+Billerica,01821,43044,2,2,No Change
+South End,02118,42797,3,3,No Change
+Back Bay Downtown,02116,42755,3,2,Overall gives higher priority
+Chicopee,01020,42671,3,3,No Change
+Lynn,01905,42502,3,3,No Change
+Dorchester Uphams,02121,42446,4,4,No Change
+Beverly,01915,41731,2,2,No Change
+Lowell,01852,41529,4,4,No Change
+Shrewsbury,01545,41503,3,2,Overall gives higher priority
+Framingham,01701,41449,2,2,No Change
+Arlington,02474,40950,2,1,Overall gives higher priority
+Chicopee,01013,40698,4,4,No Change
+Fall River,02721,40497,4,4,No Change
+Holyoke,01040,40376,4,4,No Change
+Somerville,02144,40028,1,2,SES gives higher priority
+Chelsea,02150,39852,4,4,No Change
+Marlborough,01752,39776,3,2,Overall gives higher priority
+Randolph,02368,39451,3,3,No Change
+Waltham,02452,39250,3,2,Overall gives higher priority
+Cambridge,02140,38096,2,2,No Change
+Allston Brighton,02134,37679,3,3,No Change
+Braintree,02184,37207,2,2,No Change
+Dartmouth,02747,36970,3,3,No Change
+Lynn,01904,36704,3,3,No Change
+Milford,01757,36624,2,2,No Change
+Stoughton,02072,36091,2,2,No Change
+Natick,01760,36083,1,1,No Change
+Worcester,01603,36080,4,4,No Change
+Springfield,01109,35903,4,4,No Change
+Andover,01810,35609,1,1,No Change
+Brookline,02446,35501,2,2,No Change
+Gardner,01440,34935,3,3,No Change
+Waltham,02453,34866,3,3,No Change
+Fall River,02720,34862,4,4,No Change
+Brockton,02302,34712,4,4,No Change
+Milton,02186,34282,2,2,No Change
+Worcester,01607,33913,3,3,No Change
+Newton,02459,33575,2,1,Overall gives higher priority
+Billerica,01862,33375,2,2,No Change
+Haverhill,01830,33373,3,3,No Change
+Lowell,01851,33231,4,4,No Change
+Springfield,01108,33173,4,4,No Change
+Somerville,02143,33041,2,2,No Change
+Franklin,02038,33022,1,1,No Change
+Marshfield,02050,32718,1,2,SES gives higher priority
+Somerville,02145,32698,3,3,No Change
+Weymouth,02189,32296,3,3,No Change
+Winchester,01890,32289,2,1,Overall gives higher priority
+Saugus,01906,31692,3,3,No Change
+Raynham,02767,31686,3,3,No Change
+Haverhill,01832,31630,3,3,No Change
+Dracut,01826,31266,2,3,SES gives higher priority
+Springfield,01104,31048,4,4,No Change
+Tewksbury,01876,31002,2,2,No Change
+Needham,02492,30735,2,1,Overall gives higher priority
+Northbridge,01588,30722,2,2,No Change
+Walpole,02081,30697,2,1,Overall gives higher priority
+Roxbury,02120,30646,4,4,No Change
+North Andover,01845,30589,2,2,No Change
+Weymouth,02188,30231,3,3,No Change
+Gloucester,01930,30049,2,3,SES gives higher priority
+Lynnfield,01940,29899,1,2,SES gives higher priority
+Norwood,02062,29201,2,2,No Change
+Wellesley,02481,29201,1,1,No Change
+North Attleborough,02760,29116,2,2,No Change
+New Bedford,02746,29092,4,4,No Change
+Bourne,02532,29001,2,2,No Change
+Arlington,02476,28827,2,1,Overall gives higher priority
+New Bedford,02745,28704,3,4,SES gives higher priority
+West Springfield,01089,28666,3,3,No Change
+Melrose,02176,28116,1,1,No Change
+Lexington,02421,27979,2,1,Overall gives higher priority
+Quincy,02170,27900,3,3,No Change
+Newton,02461,27891,2,1,Overall gives higher priority
+Danvers,01923,27631,2,2,No Change
+Lexington,02420,27575,2,1,Overall gives higher priority
+Burlington,01803,27059,2,2,No Change
+Westwood,02090,26990,2,2,No Change
+Wakefield,01880,26960,2,2,No Change
+Chelmsford,01824,26692,1,1,No Change
+Concord,01742,26121,2,1,Overall gives higher priority
+Belmont,02478,26043,2,1,Overall gives higher priority
+Barnstable,02601,25905,3,3,No Change
+Bridgewater,02324,25744,2,3,SES gives higher priority
+Newton,02465,25545,2,1,Overall gives higher priority
+Newton,02466,25545,2,1,Overall gives higher priority
+Agawam,01001,25518,2,3,SES gives higher priority
+Lawrence,01843,25454,4,4,No Change
+Newton,02460,25431,2,1,Overall gives higher priority
+Dedham,02026,25377,2,2,No Change
+Sandwich,02563,25302,1,1,No Change
+Reading,01867,25100,1,1,No Change
+Northampton,01060,24966,3,3,No Change
+Wayland,01778,24940,1,1,No Change
+Middleborough,02346,24505,2,2,No Change
+Fall River,02723,24503,4,4,No Change
+Westborough,01581,24498,2,1,Overall gives higher priority
+Waltham,02451,24402,2,2,No Change
+Easton,02375,24306,2,2,No Change
+Grafton,01536,24214,2,2,No Change
+Westford,01886,24194,1,1,No Change
+Sudbury,01776,24144,1,1,No Change
+South Hadley,01075,24096,2,2,No Change
+Swampscott,01907,24046,3,2,Overall gives higher priority
+Mansfield,02048,23761,2,1,Overall gives higher priority
+Westport,02790,23740,2,2,No Change
+Wilmington,01887,23658,2,1,Overall gives higher priority
+Acton,01720,23561,2,1,Overall gives higher priority
+Falmouth,02536,23500,2,2,No Change
+Springfield,01105,23476,4,4,No Change
+Bedford,01730,23463,2,1,Overall gives higher priority
+Weymouth,02190,23367,2,2,No Change
+Springfield,01107,23345,4,4,No Change
+Hingham,02043,23298,1,1,No Change
+Back Bay Downtown,02114,23262,2,2,No Change
+Quincy,02171,23249,3,3,No Change
+Canton,02021,23134,2,1,Overall gives higher priority
+Fall River,02724,22762,4,4,No Change
+Newton,02458,22388,2,1,Overall gives higher priority
+Monson,01057,22265,2,3,SES gives higher priority
+Harvard,01434,22223,2,2,No Change
+Stoneham,02180,22144,2,2,No Change
+Mashpee,02649,22080,2,2,No Change
+Springfield,01119,22076,4,4,No Change
+Harwich,02645,22010,2,2,No Change
+Longmeadow,01106,21938,2,2,No Change
+Greenfield,01301,21819,3,3,No Change
+Springfield,01129,21724,3,3,No Change
+Ludlow,01056,21336,3,3,No Change
+Falmouth,02540,21327,1,2,SES gives higher priority
+Uxbridge,01569,21244,2,2,No Change
+Wellesley,02482,21140,1,1,No Change
+Abington,02351,21043,2,2,No Change
+Marblehead,01945,20488,1,1,No Change
+Cambridge,02141,20444,2,2,No Change
+Back Bay Downtown,02109,20167,3,2,Overall gives higher priority
+Hudson,01749,19868,2,2,No Change
+Northampton,01062,19693,3,3,No Change
+Needham,02494,19664,1,1,No Change
+Norton,02766,19634,2,2,No Change
+Tyngsborough,01879,19418,2,2,No Change
+Charlestown,02129,19414,2,2,No Change
+Agawam,01030,19395,2,2,No Change
+Dartmouth,02748,19331,2,3,SES gives higher priority
+Easton,02356,19218,2,1,Overall gives higher priority
+Leicester,01542,19200,2,3,SES gives higher priority
+Worcester,01608,19002,4,4,No Change
+Holden,01520,18821,1,1,No Change
+Walpole,02071,18778,2,2,No Change
+Scituate,02066,18591,1,1,No Change
+Wareham,02571,18551,3,3,No Change
+Winthrop,02152,18535,2,2,No Change
+Sharon,02067,18400,1,1,No Change
+Back Bay Downtown,02108,18361,3,2,Overall gives higher priority
+Pembroke,02359,18304,1,2,SES gives higher priority
+Wilbraham,01095,18211,2,2,No Change
+Somerset,02726,18207,2,3,SES gives higher priority
+Millbury,01527,18070,2,2,No Change
+Newburyport,01950,17990,1,1,No Change
+Rockland,02370,17909,2,2,No Change
+Easthampton,01027,17848,2,2,No Change
+Barnstable,02648,17613,1,2,SES gives higher priority
+Ashland,01721,17576,1,1,No Change
+Foxborough,02035,17535,2,2,No Change
+Palmer,01069,17469,3,3,No Change
+Amesbury,01913,17378,2,2,No Change
+North Attleborough,02763,17335,2,2,No Change
+Sandwich,02537,17267,1,1,No Change
+Hopkinton,01748,17178,1,1,No Change
+Yarmouth,02673,17047,2,3,SES gives higher priority
+Bellingham,02019,17016,1,2,SES gives higher priority
+Norwell,02061,16984,2,1,Overall gives higher priority
+Webster,01570,16971,3,3,No Change
+Southbridge,01550,16894,4,4,No Change
+Shelburne,01370,16766,2,2,No Change
+Douglas,01516,16639,1,2,SES gives higher priority
+Auburn,01501,16633,2,2,No Change
+Northbridge,01534,16522,2,2,No Change
+Swansea,02777,16462,2,2,No Change
+North Adams,01247,16337,3,4,SES gives higher priority
+Lowell,01850,16267,4,4,No Change
+East Longmeadow,01028,16200,2,2,No Change
+Taunton,02718,16038,2,2,No Change
+Fairhaven,02719,16026,3,3,No Change
+Orange,01364,15927,3,3,No Change
+Wareham,02538,15895,3,3,No Change
+Duxbury,02332,15703,1,1,No Change
+Hanson,02341,15677,1,2,SES gives higher priority
+North Reading,01864,15642,1,1,No Change
+Springfield,01118,15570,3,3,No Change
+Grafton,01519,15254,2,2,No Change
+Seekonk,02771,15210,2,2,No Change
+Lenox,01240,15101,3,2,Overall gives higher priority
+South Boston,02210,15052,2,2,No Change
+Northborough,01532,14985,1,1,No Change
+Barnstable,02632,14979,2,2,No Change
+Belchertown,01007,14967,2,2,No Change
+Whitman,02382,14961,2,2,No Change
+Ashburnham,01430,14935,3,3,No Change
+Weymouth,02191,14913,2,2,No Change
+Back Bay Downtown,02113,14906,2,2,No Change
+Lynn,01901,14897,4,4,No Change
+Chelmsford,01863,14727,2,2,No Change
+Athol,01331,14662,3,3,No Change
+Holliston,01746,14634,1,1,No Change
+Holden,01522,14583,2,1,Overall gives higher priority
+Great Barrington,01230,14546,2,2,No Change
+Hanover,02339,14397,1,1,No Change
+East Bridgewater,02333,14386,2,2,No Change
+New Bedford,02744,14366,4,4,No Change
+Ware,01082,14161,3,3,No Change
+West Boylston,01583,14146,2,3,SES gives higher priority
+Oxford,01540,13944,2,3,SES gives higher priority
+Barnstable,02668,13937,1,2,SES gives higher priority
+Lakeville,02347,13918,2,2,No Change
+Mendon,01756,13913,1,2,SES gives higher priority
+Ipswich,01938,13901,2,2,No Change
+Clinton,01510,13899,2,2,No Change
+Acushnet,02743,13856,3,3,No Change
+Cambridge,02142,13792,3,3,No Change
+Newton,02468,13709,1,1,No Change
+Dighton,02715,13515,2,2,No Change
+Charlton,01507,13482,2,2,No Change
+Kingston,02364,13381,2,2,No Change
+Medway,02053,13244,1,1,No Change
+Haverhill,01835,13166,2,2,No Change
+Amherst,01003,13056,3,4,SES gives higher priority
+Oak Bluffs,02568,13007,2,2,No Change
+Brewster,02631,12912,2,1,Overall gives higher priority
+Medfield,02052,12748,1,1,No Change
+South End,02111,12697,4,4,No Change
+Back Bay Downtown,02110,12630,4,3,Overall gives higher priority
+Yarmouth,02664,12574,2,2,No Change
+Chicopee,01022,12467,3,3,No Change
+Wareham,02576,12206,2,3,SES gives higher priority
+Barnstable,02655,12111,1,2,SES gives higher priority
+Pepperell,01463,12083,2,2,No Change
+Rehoboth,02769,12082,1,1,No Change
+Weston,02493,12067,2,1,Overall gives higher priority
+Lawrence,01840,12057,4,4,No Change
+Winchendon,01475,11958,3,3,No Change
+Spencer,01562,11913,2,3,SES gives higher priority
+Norfolk,02056,11748,1,1,No Change
+Wrentham,02093,11734,1,1,No Change
+Dudley,01571,11682,2,3,SES gives higher priority
+Carver,02330,11661,2,3,SES gives higher priority
+Adams,01220,11344,3,3,No Change
+Groton,01450,11301,1,1,No Change
+Leicester,01524,11286,2,3,SES gives higher priority
+Lunenburg,01462,11271,2,2,No Change
+Yarmouth,02675,11225,1,1,No Change
+Orleans,02653,11141,2,2,No Change
+Lincoln,01773,11127,1,1,No Change
+Nantucket,02554,11101,2,2,No Change
+Templeton,01436,11098,3,3,No Change
+Holbrook,02343,11036,2,2,No Change
+Dennis,02639,10799,3,3,No Change
+Maynard,01754,10600,1,1,No Change
+Hull,02045,10424,1,2,SES gives higher priority
+Chester,01011,10276,2,2,No Change
+Williamstown,01267,10225,2,3,SES gives higher priority
+Bourne,02542,10217,2,2,No Change
+Dalton,01226,10192,2,2,No Change
+Deerfield,01373,10138,2,2,No Change
+Southborough,01772,10074,1,1,No Change
+Great Barrington,01236,9987,3,3,No Change
+Littleton,01460,9935,1,1,No Change
+Middleton,01949,9779,3,2,Overall gives higher priority
+Southwick,01077,9727,2,2,No Change
+Springfield,01151,9634,4,4,No Change
+Paxton,01612,9576,1,1,No Change
+Sturbridge,01518,9537,2,1,Overall gives higher priority
+Sturbridge,01566,9537,2,1,Overall gives higher priority
+Bedford,01731,9517,2,1,Overall gives higher priority
+Townsend,01469,9455,1,2,SES gives higher priority
+Townsend,01474,9455,1,2,SES gives higher priority
+Newton,02464,9396,2,1,Overall gives higher priority
+Sutton,01590,9385,1,1,No Change
+Bourne,02559,9301,2,1,Overall gives higher priority
+Freetown,02717,9251,2,2,No Change
+Blackstone,01504,9246,2,2,No Change
+Salisbury,01952,9209,3,3,No Change
+Huntington,01050,9154,2,3,SES gives higher priority
+Plainville,02762,9088,2,1,Overall gives higher priority
+Springfield,01103,9046,4,4,No Change
+Springfield,01128,8991,3,3,No Change
+West Brookfield,01585,8985,2,2,No Change
+Lee,01238,8925,3,3,No Change
+Newton,02462,8731,2,1,Overall gives higher priority
+Georgetown,01833,8649,1,1,No Change
+Williamsburg,01039,8618,2,2,No Change
+Rutland,01543,8586,1,1,No Change
+Cohasset,02025,8449,1,1,No Change
+Dennis,02660,8440,2,3,SES gives higher priority
+Montague,01376,8334,3,3,No Change
+Charlemont,01339,8301,3,3,No Change
+Boxford,01921,8270,1,1,No Change
+Millis,02054,8202,1,1,No Change
+Templeton,01438,8127,3,3,No Change
+Templeton,01468,8127,3,3,No Change
+Ayer,01432,8055,2,2,No Change
+Sterling,01564,8052,1,1,No Change
+Lancaster,01523,8043,2,3,SES gives higher priority
+Lancaster,01561,8043,2,3,SES gives higher priority
+Bourne,02562,8035,1,2,SES gives higher priority
+Hamilton,01982,8020,2,1,Overall gives higher priority
+Oxford,01537,7914,3,3,No Change
+Falmouth,02543,7848,1,1,No Change
+Upton,01568,7835,1,2,SES gives higher priority
+Halifax,02338,7824,1,2,SES gives higher priority
+Barnstable,02672,7799,2,2,No Change
+Montague,01349,7797,3,3,No Change
+Lee,01260,7720,3,3,No Change
+Barnstable,02630,7707,2,2,No Change
+NA,02861,7704,3,3,No Change
+Westminster,01473,7665,1,2,SES gives higher priority
+Shirley,01464,7598,3,3,No Change
+Dighton,02764,7571,2,2,No Change
+Harwich,02646,7470,2,2,No Change
+NA,01525,7341,1,2,SES gives higher priority
+Petersham,01366,7294,3,3,No Change
+Rockport,01966,7212,1,2,SES gives higher priority
+Wellfleet,02667,7197,2,3,SES gives higher priority
+West Bridgewater,02379,7165,2,2,No Change
+Blandford,01008,7129,2,3,SES gives higher priority
+Granville,01034,7129,2,3,SES gives higher priority
+Russell,01071,7129,2,3,SES gives higher priority
+NA,01097,7129,2,3,SES gives higher priority
+Stow,01775,7098,1,1,No Change
+Royalston,01368,7075,3,4,SES gives higher priority
+Newbury,01922,7031,1,2,SES gives higher priority
+Newbury,01951,7031,1,2,SES gives higher priority
+Harwich,02671,7009,3,3,No Change
+Scituate,02047,6964,1,1,No Change
+Walpole,02032,6865,1,1,No Change
+Merrimac,01860,6839,2,2,No Change
+Acton,01718,6798,3,1,Overall gives higher priority
+NA,02366,6789,2,2,No Change
+Somerset,02725,6770,3,3,No Change
+Groveland,01834,6749,1,1,No Change
+Berkley,02779,6679,1,1,No Change
+Harvard,01451,6570,1,2,SES gives higher priority
+NA,01467,6570,1,2,SES gives higher priority
+Topsfield,01983,6551,2,2,No Change
+Sandwich,02644,6491,1,1,No Change
+Granby,01033,6333,1,2,SES gives higher priority
+Rowley,01969,6298,1,1,No Change
+Mattapoisett,02739,6294,1,1,No Change
+Chatham,02633,6155,1,2,SES gives higher priority
+Southampton,01073,6140,1,2,SES gives higher priority
+Allston Brighton,02163,6100,3,3,No Change
+Dover,02030,5987,1,1,No Change
+Hinsdale,01235,5969,1,2,SES gives higher priority
+Hopedale,01747,5951,2,2,No Change
+Boxborough,01719,5794,1,2,SES gives higher priority
+NA,02203,5555,4,3,Overall gives higher priority
+Barre,01005,5539,2,3,SES gives higher priority
+Barre,01074,5539,2,3,SES gives higher priority
+Rochester,02770,5527,2,2,No Change
+Lanesborough,01237,5466,2,2,No Change
+Dennis,02638,5449,2,2,No Change
+Easton,02357,5390,2,2,No Change
+Manchester,01944,5370,1,1,No Change
+Hadley,01035,5310,2,1,Overall gives higher priority
+Bolton,01740,5236,1,1,No Change
+Warren,01083,5210,2,2,No Change
+Warren,01092,5210,2,2,No Change
+Wenham,01984,5208,1,1,No Change
+Hampden,01036,5191,2,3,SES gives higher priority
+Carlisle,01741,5186,1,1,No Change
+Marion,02738,5100,2,2,No Change
+Whately,01093,5092,2,2,No Change
+Sunderland,01375,5092,2,2,No Change
+NA,02457,5083,2,1,Overall gives higher priority
+West Stockbridge,01266,5058,2,2,No Change
+Deerfield,01342,5046,2,2,No Change
+Lenox,01242,4979,3,2,Overall gives higher priority
+Bourne,02561,4977,1,2,SES gives higher priority
+Bourne,02553,4970,1,1,No Change
+Freetown,02702,4963,1,2,SES gives higher priority
+Monterey,01245,4909,2,2,No Change
+Eastham,02642,4893,1,2,SES gives higher priority
+Williamsburg,01096,4881,2,2,No Change
+Leverett,01054,4820,2,2,No Change
+Shutesbury,01072,4820,2,2,No Change
+New Salem,01355,4820,2,2,No Change
+Barnstable,02637,4788,1,1,No Change
+North Brookfield,01535,4764,2,3,SES gives higher priority
+Oak Bluffs,02557,4686,2,1,Overall gives higher priority
+Wales,01081,4656,2,3,SES gives higher priority
+Holland,01521,4656,2,3,SES gives higher priority
+Hubbardston,01452,4642,1,2,SES gives higher priority
+Grafton,01560,4597,2,2,No Change
+Boylston,01505,4581,1,1,No Change
+West Newbury,01985,4581,1,2,SES gives higher priority
+Barnstable,02635,4560,1,2,SES gives higher priority
+Southborough,01745,4558,1,1,No Change
+Leicester,01611,4525,2,2,No Change
+Colrain,01340,4511,3,3,No Change
+Heath,01346,4511,3,3,No Change
+Monroe,01350,4511,3,3,No Change
+Rowe,01367,4511,3,3,No Change
+Avon,02322,4482,3,3,No Change
+Montague,01347,4372,3,3,No Change
+Montague,01351,4372,3,3,No Change
+Bernardston,01337,4351,3,2,Overall gives higher priority
+Gill,01354,4351,3,2,Overall gives higher priority
+Bourne,02534,4331,2,1,Overall gives higher priority
+Hardwick,01031,4323,3,3,No Change
+Hardwick,01037,4323,3,3,No Change
+Hardwick,01094,4323,3,3,No Change
+New Braintree,01531,4323,3,3,No Change
+Edgartown,02539,4306,1,2,SES gives higher priority
+Sherborn,01770,4301,1,1,No Change
+NA,01937,4283,3,2,Overall gives higher priority
+Chilmark,02535,4218,1,1,No Change
+West Tisbury,02575,4218,1,1,No Change
+Gosnold,02713,4218,1,1,No Change
+Falmouth,02556,4047,1,1,No Change
+Wareham,02558,4023,2,3,SES gives higher priority
+Buckland,01338,3790,3,3,No Change
+NA,01199,3766,4,4,No Change
+Brimfield,01010,3739,2,3,SES gives higher priority
+Essex,01929,3713,1,1,No Change
+Barnstable,02647,3657,4,3,Overall gives higher priority
+Palmer,01080,3607,4,4,No Change
+Northampton,01053,3602,3,3,No Change
+Richmond,01254,3599,2,1,Overall gives higher priority
+Goshen,01032,3526,2,2,No Change
+Nahant,01908,3495,1,1,No Change
+Wellfleet,02663,3481,3,3,No Change
+Princeton,01541,3443,1,1,No Change
+Brookfield,01506,3431,2,3,SES gives higher priority
+Erving,01344,3425,3,3,No Change
+Warwick,01378,3425,3,3,No Change
+Wendell,01379,3425,3,3,No Change
+Ashfield,01330,3419,1,1,No Change
+Conway,01341,3419,1,1,No Change
+Dunstable,01827,3345,1,1,No Change
+Hatfield,01038,3292,2,1,Overall gives higher priority
+Hatfield,01066,3292,2,1,Overall gives higher priority
+Hatfield,01088,3292,2,1,Overall gives higher priority
+Millville,01529,3242,2,2,No Change
+Ashby,01431,3215,1,3,SES gives higher priority
+Cheshire,01225,3172,2,3,SES gives higher priority
+Sheffield,01222,3170,1,2,SES gives higher priority
+Sheffield,01257,3170,1,2,SES gives higher priority
+Cummington,01026,3147,2,2,No Change
+Plainfield,01070,3147,2,2,No Change
+Worthington,01098,3147,2,2,No Change
+Middlefield,01243,3147,2,2,No Change
+Back Bay Downtown,02199,3145,2,1,Overall gives higher priority
+Berlin,01503,3144,1,1,No Change
+Chatham,02659,3078,1,1,No Change
+NA,02669,3078,1,1,No Change
+Chatham,02650,3077,2,2,No Change
+Lanesborough,01224,3000,2,3,SES gives higher priority
+Northfield,01360,2997,2,2,No Change
+Provincetown,02657,2960,3,3,No Change
+Plympton,02367,2945,1,2,SES gives higher priority
+Dennis,02641,2891,2,2,No Change
+NA,01086,2842,1,1,No Change
+NA,02643,2777,1,1,No Change
+Westport,02791,2677,1,2,SES gives higher priority
+NA,02651,2462,1,3,SES gives higher priority
+Becket,01223,2402,2,3,SES gives higher priority
+Otis,01029,2392,3,3,No Change
+Otis,01253,2392,3,3,No Change
+Sandisfield,01255,2392,3,3,No Change
+Palmer,01009,2376,2,2,No Change
+NA,01079,2376,2,2,No Change
+Northampton,01063,2371,2,3,SES gives higher priority
+East Brookfield,01515,2159,2,2,No Change
+Mount Washington,01258,1965,1,1,No Change
+NA,01229,1960,2,3,SES gives higher priority
+Stockbridge,01262,1960,2,3,SES gives higher priority
+Oakham,01068,1840,1,2,SES gives higher priority
+Dennis,02670,1759,1,2,SES gives higher priority
+Windsor,01270,1714,1,2,SES gives higher priority
+Savoy,01256,1504,3,3,No Change
+Florida,01343,1504,3,3,No Change
+Chesterfield,01012,1355,1,3,SES gives higher priority
+Chesterfield,01084,1355,1,3,SES gives higher priority
+NA,01244,1312,2,2,No Change
+New Marlborough,01259,1312,2,2,No Change
+Truro,02652,1254,2,3,SES gives higher priority
+Truro,02666,1254,2,3,SES gives higher priority
+Tyringham,01264,1205,1,2,SES gives higher priority
+Nantucket,02564,1116,1,1,No Change
+NA,02584,1116,1,1,No Change
