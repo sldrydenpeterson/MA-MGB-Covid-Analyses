@@ -1,4 +1,89 @@
-.Rproj.user
+# History files
 .Rhistory
+.Rapp.history
+# Session Data files
 .RData
+# User-specific files
 .Ruserdata
+# Example code in package build process
+*-Ex.R
+# Output files from R CMD build
+/*.tar.gz
+# Output files from R CMD check
+/*.Rcheck/
+# RStudio files
+.Rproj.user/
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+# OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
+.httr-oauth
+# knitr and R markdown default cache directories
+*_cache/
+/cache/
+# Temporary files created by R markdown
+*.utf8.md
+*.knit.md
+# R Environment Variables
+.Renviron
+# macOS files
+.DS_Store
+# zsh and graphic files
+.zshrc
+.Rproj.user
+.Rhistory (Doc-Air.local's conflicted copy 2020-10-06)
+.Rhistory (Doc-Air.local's conflicted copy 2020-10-10)
+.Rhistory (Doc-Air.local's conflicted copy 2020-10-16)
+*.pdf
+*.xlsx
+*.tsv
+*.png
+*.tar
+*.gif
+*.jpg
+*.png
+*.pptx
+# specific use .csv
+bostoncovid_neighborhood.csv
+20210415 VIR for med students.csv
+20210422 MA town vaccination.csv
+20210501 VIR for med students.csv
+.Rhistory (PHS017926's conflicted copy 2021-07-12)
+.gitignore (PHS017926's conflicted copy 2021-07-12)
+~$20210711 covid epi.pptx
+20210711 covid epi.pptx
+20210631 MGH Town Hall.pptx
+wide template.pptx
+BWH Case Conference.R
+MA_2019_ADI_9 Digit Zip Code_v3.1.txt
+MO_2019_ADI_9 Digit Zip Code_v3.1.txt
+US_2019_ADI_Census Block Group_v3.1.txt
+2010_Census_Populations_by_Zip_Code.csv
+zip_code_database.csv
+SVI2018_US.csv
+~$20210719 covid epi.pptx
+20210719 covid epi.pptx
+weekly-covid-19-municipality-vaccination-report-3-17-2021.xlsx
+photo.jp2
+nytcounts.csv
+nytcounts.Rdata
+jhju.rtf.sb-f42e40c7-zrZ038
+cdc_county_vax.json
+NYT download.txt
+20210107 tix_cil neuro priority.csv
+20210107 tix_cil rheum priority.csv
+20220107 tix_cil derm priority.csv
+20220107 tix_cil neuro priority.csv
+20220107 tix_cil rheum priority.csv
+20220120 tix_cil renal priority.csv
+Admins_Trend_data-15.csv
+Admins_Trend_data.csv
+BPHC neighborhood
+wsMGB_Daily_IP_Census_data-all.csv
+wsMGB_Daily_IP_Census_data-boost.csv
+wsMGB_Daily_IP_Census_data-fullvax.csv
+wsMGB_Daily_IP_Census_data-unvax.csv
+initial ritux priority.csv
+MGHMRN20220109List1.priority.csv
+cdcwastewater.csv
+NWSS_Public_SARS-CoV-2_Wastewater_Metric_Data.csv
