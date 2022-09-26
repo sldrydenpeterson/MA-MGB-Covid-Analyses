@@ -9,11 +9,11 @@ library(janitor)
 
 #library(foreign)
 
-setwd("~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing")
+setwd("~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses")
 
 
 #MDPH covid case file,  reads in most recent case/testing excel file from their website
-download.file("https://www.mass.gov/doc/covid-19-raw-data-september-15-2022/download", "mdphcase_recent.xlsx")
+download.file("https://www.mass.gov/doc/covid-19-raw-data-september-22-2022/download", "mdphcase_recent.xlsx")
 mdphfile<- "mdphcase_recent.xlsx"
 
 
@@ -375,7 +375,7 @@ covidtowns <-rbind(
 #Importing BPHC case data from revised dashboard
 
 #adapted from https://clauswilke.com/blog/2016/06/13/reading-and-combining-many-tidy-data-files-in-r/
-data_path <- "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/BPHC neighborhood" 
+data_path <- "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/BPHC neighborhood" 
 files <-  dir(data_path , pattern = "*.csv")
 
 # gathering weekly files downloaded from: https://analytics.boston.gov/app/boston-covid
@@ -871,9 +871,31 @@ write_csv(mdph_age, "~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCoV2-Epidemic
 
 # vaccine by zipcode by age group table
 vaccine.anydose.age<-(bind_rows(
-
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-21-2022.xlsx",
+             skip = 2, 
+             col_types = c("text", 
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "skip","skip","skip","skip","skip","skip","skip", "skip","skip","skip",
+                           "skip","skip",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric"),
+             col_names = c("zipcode", 
+                           "age0to4","age5to11", "age12to15", "age16to19", "age20to29", "age30-39", "age40to49", 
+                           "age50to59", "age60to64", "age65-69", "age70to74", "age75plus",
+                           "age0to4.full", "age5to11.full", "age12to15.full", "age16to19.full", "age20to29.full", "age30-39.full", "age40to49.full", 
+                           "age50to59.full", "age60to64.full", "age65-69.full", "age70to74.full", "age75plus.full",
+                           "age0to4.boost", "age5to11.boost", "age12to15.boost", "age16to19.boost", "age20to29.boost", "age30-39.boost", "age40to49.boost", "age50to59.boost",
+                           "age60to64.boost", "age65-69.boost", "age70to74.boost", "age75plus.boost")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           reportdate=as.Date("2022-09-22")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Age – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -897,7 +919,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-7-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-7-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -920,7 +942,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-09-08")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-31-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-31-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -944,7 +966,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-24-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-24-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -968,7 +990,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-17-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-17-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -991,7 +1013,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-08-18")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-10-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-10-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -1014,7 +1036,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-08-11")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-3-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-3-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -1037,7 +1059,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-08-04")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-27-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-27-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -1060,7 +1082,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-07-28")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-20-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-20-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -1083,7 +1105,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-07-21")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-14-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-14-2022.xlsx",
              skip = 2, 
              col_types = c("text", 
                            "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
@@ -1106,7 +1128,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-07-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-7-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-7-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1124,7 +1146,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-30-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-30-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1141,7 +1163,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-06-30")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-23-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-23-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1158,7 +1180,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-06-23")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-16-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-16-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1175,7 +1197,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-06-16")) %>% relocate(reportdate),
 
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-9-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-9-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1192,7 +1214,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-06-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-2-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-2-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1209,7 +1231,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-06-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-26-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-26-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1226,7 +1248,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-05-26")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-19-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-19-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1243,7 +1265,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-05-19")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-12-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-12-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1260,7 +1282,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-05-12")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - Zipcode", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-5-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-5-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1277,7 +1299,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-05-05")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-28-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-28-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1294,7 +1316,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-04-28")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-21-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-21-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1311,7 +1333,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-04-21")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-14-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-14-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1328,7 +1350,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-04-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-7-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-7-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1346,7 +1368,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-31-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-31-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1363,7 +1385,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-03-31")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-24-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-24-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1380,7 +1402,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-03-24")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-17-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-17-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1397,7 +1419,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-03-17")) %>% relocate(reportdate),
 
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-10-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-10-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1414,7 +1436,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-03-10")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-3-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-3-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1431,7 +1453,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-03-03")) %>% relocate(reportdate),
     
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-24-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-24-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1448,7 +1470,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-02-24")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-17-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-17-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1465,7 +1487,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-02-17")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-10-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-10-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1482,7 +1504,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-02-10")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-3-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-3-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1499,7 +1521,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-02-03")) %>% relocate(reportdate),
   
    read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-27-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-27-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1516,7 +1538,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-01-27")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-20-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-20-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1533,7 +1555,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-01-20")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-13-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-13-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1551,7 +1573,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-6-2022.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-6-2022.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1568,7 +1590,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2022-01-06")) %>% relocate(reportdate),
 
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-30-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-30-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1585,7 +1607,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-12-30")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-23-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-23-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1602,7 +1624,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-12-23")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-16-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-16-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1616,7 +1638,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-12-16")) %>% relocate(reportdate),
    
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-9-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-9-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1630,7 +1652,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-12-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-2-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-2-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1644,7 +1666,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-12-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-25-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-25-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1658,7 +1680,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-11-25")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-18-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-18-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1672,7 +1694,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-11-18")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-11-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-11-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1686,7 +1708,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-11-11")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-4-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-4-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1701,7 +1723,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-11-04")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-28-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-28-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1716,7 +1738,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-10-28")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-21-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-21-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1731,7 +1753,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-10-21")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-14-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-14-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1746,7 +1768,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-10-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-7-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-7-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1761,7 +1783,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-10-07")) %>% relocate(reportdate),
    
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-30-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-30-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1776,7 +1798,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-09-30")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-23-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-23-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1791,7 +1813,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-09-23")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-16-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-16-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1806,7 +1828,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-09-16")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-9-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-9-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1821,7 +1843,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-09-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-2-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-2-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1836,7 +1858,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-09-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-26-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-26-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1851,7 +1873,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-08-26")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-19-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-19-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1866,7 +1888,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-08-19")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-12-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-12-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1882,7 +1904,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-5-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-5-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1898,7 +1920,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
     read_excel(sheet = "Age – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-29-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-29-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1913,7 +1935,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-07-29")) %>% relocate(reportdate),
     
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-22-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-22-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1929,7 +1951,7 @@ vaccine.anydose.age<-(bind_rows(
   
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1944,7 +1966,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-07-15")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-8-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-8-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1959,7 +1981,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-07-08")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-1-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-1-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1974,7 +1996,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-07-01")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-24-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-24-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -1989,7 +2011,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-06-24")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-17-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-17-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2004,7 +2026,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-06-17")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-10-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-10-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2019,7 +2041,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-06-10")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-3-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-3-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2034,7 +2056,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-06-03")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-27-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-27-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2049,7 +2071,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-05-27")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-20-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-20-2021.xlsx",
              skip = 2, 
              col_types = c("text", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2064,7 +2086,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-05-20")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-13-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-13-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2081,7 +2103,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-05-13")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-06-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-06-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2098,7 +2120,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-05-06")) %>% relocate(reportdate), 
     
     read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-29-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-29-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2115,7 +2137,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-04-29")) %>% relocate(reportdate), 
   
      read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-22-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-22-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2132,7 +2154,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-04-22")) %>% relocate(reportdate), 
   
     read_excel(sheet = "Age - zip code", 
-                        "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-15-2021.xlsx",
+                        "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-15-2021.xlsx",
                         skip = 2, 
                col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                              "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2149,7 +2171,7 @@ vaccine.anydose.age<-(bind_rows(
          reportdate=as.Date("2021-04-15")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-08-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-08-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2166,7 +2188,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-04-08")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-01-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-01-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2183,7 +2205,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-04-01")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-25-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-25-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2200,7 +2222,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-03-25")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-18-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-18-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2217,7 +2239,7 @@ vaccine.anydose.age<-(bind_rows(
            reportdate=as.Date("2021-03-18")) %>% relocate(reportdate), 
   
   read_excel(sheet = "Age - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-11-2021.xlsx",
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-11-2021.xlsx",
              skip = 2, 
              col_types = c("text",  "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
                            "numeric","numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  "numeric","numeric",
@@ -2251,9 +2273,23 @@ save(vaccine.anydose.age, file="~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCo
 
 # vaccine by zipcode by sex/gender table (including other)
 vaccine.sex<-(bind_rows(
+  read_excel(sheet = "Sex – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-21-2022.xlsx", 
+             skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
+                                     "numeric", "numeric", "skip", "skip", "skip",
+                                     "numeric", "numeric", "numeric"),
+             col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
+                           "fullvax.female", "fullvax.male", "fullvax.other",
+                           "boost.female", "boost.male", "boost.other")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           fullvax.total=sum(c(fullvax.female, fullvax.male, fullvax.other), na.rm = TRUE),
+           boostvax.total=sum(c(boost.female, boost.male, boost.other), na.rm = TRUE),
+           anyvax.total=sum(c(anyvax.female, anyvax.male, anyvax.other), na.rm = TRUE),
+           reportdate=as.Date("2022-09-22")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2268,7 +2304,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-09-15")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-7-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-7-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2283,7 +2319,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-09-08")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-31-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-31-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2298,7 +2334,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-09-01")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-24-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-24-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2313,7 +2349,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-08-25")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-17-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-17-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2328,7 +2364,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-08-18")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-10-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-10-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2343,7 +2379,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-08-11")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-3-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-3-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2358,7 +2394,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-08-04")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-27-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-27-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2373,7 +2409,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-07-28")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-20-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-20-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2388,7 +2424,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-07-21")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-14-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-14-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2404,7 +2440,7 @@ vaccine.sex<-(bind_rows(
   
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-7-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-7-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2420,7 +2456,7 @@ vaccine.sex<-(bind_rows(
   
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-30-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-30-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2435,7 +2471,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-06-30")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-23-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-23-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2450,7 +2486,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-06-23")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-16-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-16-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2465,7 +2501,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-06-16")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-9-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-9-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2480,7 +2516,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-06-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-2-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-2-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2495,7 +2531,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-06-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-26-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-26-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2510,7 +2546,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-05-26")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-19-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-19-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2525,7 +2561,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-05-19")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-12-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-12-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2540,7 +2576,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-05-12")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - Zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-5-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-5-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2555,7 +2591,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-05-05")) %>% relocate(reportdate),
     
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-28-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-28-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2570,7 +2606,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-04-28")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-21-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-21-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2585,7 +2621,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-04-21")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-14-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-14-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2600,7 +2636,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-04-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-7-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-7-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2615,7 +2651,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-04-07")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-31-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-31-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2630,7 +2666,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-03-31")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-24-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-24-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2645,7 +2681,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-03-24")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-17-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-17-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2660,7 +2696,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-03-17")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-10-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-10-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2675,7 +2711,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-03-10")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-3-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-3-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2690,7 +2726,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-03-03")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-24-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-24-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2705,7 +2741,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-02-24")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-17-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-17-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2720,7 +2756,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-02-17")) %>% relocate(reportdate),
 
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-10-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-10-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2735,7 +2771,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-02-10")) %>% relocate(reportdate),
 
   read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-3-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-3-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2750,7 +2786,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-02-03")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-27-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-27-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2765,7 +2801,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-01-27")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex – zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-20-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-20-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
                                      "numeric", "numeric", "numeric"),
@@ -2780,7 +2816,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2022-01-20")) %>% relocate(reportdate),
   
       read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-13-2022.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-13-2022.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip",
                                        "numeric", "numeric", "numeric"),
@@ -2795,7 +2831,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2022-01-13")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-6-2022.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-6-2022.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip",
                                        "numeric", "numeric", "numeric"),
@@ -2810,7 +2846,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2022-01-06")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-30-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-30-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip",
                                        "numeric", "numeric", "numeric"),
@@ -2825,7 +2861,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-12-30")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-23-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-23-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip",
                                        "numeric", "numeric", "numeric"),
@@ -2840,7 +2876,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-12-23")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-16-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-16-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2852,7 +2888,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-12-16")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-9-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-9-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2864,7 +2900,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-12-09")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-2-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-2-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2876,7 +2912,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-12-02")) %>% relocate(reportdate),
     
       read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-25-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-25-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2888,7 +2924,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-11-25")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-18-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-18-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2901,7 +2937,7 @@ vaccine.sex<-(bind_rows(
     
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-11-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-11-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2913,7 +2949,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-11-11")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-4-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-4-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2925,7 +2961,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-11-04")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-28-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-28-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2937,7 +2973,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-10-28")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-21-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-21-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2949,7 +2985,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-10-21")) %>% relocate(reportdate),
     
         read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-14-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-14-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2961,7 +2997,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-10-14")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-7-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-7-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2973,7 +3009,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-10-07")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-30-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-30-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2985,7 +3021,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-09-30")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-23-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-23-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -2997,7 +3033,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-09-23")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-16-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-16-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3009,7 +3045,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-09-16")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-9-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-9-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3021,7 +3057,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-09-09")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-2-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-2-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3033,7 +3069,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-09-02")) %>% relocate(reportdate),
      
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-26-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-26-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3045,7 +3081,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-08-26")) %>% relocate(reportdate),
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-19-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-19-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3057,7 +3093,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-08-19")) %>% relocate(reportdate), 
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-12-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-12-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3069,7 +3105,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-08-12")) %>% relocate(reportdate), 
 
     read_excel(sheet = "Sex - zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-5-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-5-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3081,7 +3117,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-08-05")) %>% relocate(reportdate), 
     
     read_excel(sheet = "Sex – zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-29-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-29-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3093,7 +3129,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-07-29")) %>% relocate(reportdate), 
     
         read_excel(sheet = "Sex - zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-22-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-22-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3105,7 +3141,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-07-22")) %>% relocate(reportdate), 
 
     read_excel(sheet = "Sex - zip code", 
-               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx", 
+               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx", 
                skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                        "numeric", "numeric", "skip", "skip", "skip"),
                col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3117,7 +3153,7 @@ vaccine.sex<-(bind_rows(
              reportdate=as.Date("2021-07-15")) %>% relocate(reportdate),  
     
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-8-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-8-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3129,7 +3165,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-07-08")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-1-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-1-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3141,7 +3177,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-07-01")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-24-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-24-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3153,7 +3189,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-06-24")) %>% relocate(reportdate),
   
     read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-17-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-17-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3165,7 +3201,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-06-17")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-10-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-10-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3177,7 +3213,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-06-10")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-3-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-3-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3189,7 +3225,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-06-03")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-27-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-27-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3201,7 +3237,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-05-27")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-20-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-20-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3213,7 +3249,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-05-20")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-13-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-13-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3225,7 +3261,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-05-13")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-06-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-06-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3237,7 +3273,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-05-06")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-29-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-29-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3249,7 +3285,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-04-29")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-22-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-22-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3261,7 +3297,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-04-22")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-                        "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-15-2021.xlsx", 
+                        "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-15-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3273,7 +3309,7 @@ vaccine.sex<-(bind_rows(
          reportdate=as.Date("2021-04-15")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-08-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-08-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3285,7 +3321,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-04-08")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-01-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-01-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3297,7 +3333,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-04-01")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-25-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-25-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3309,7 +3345,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-03-25")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-18-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-18-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3321,7 +3357,7 @@ vaccine.sex<-(bind_rows(
            reportdate=as.Date("2021-03-18")) %>% relocate(reportdate),
   
   read_excel(sheet = "Sex - zip code", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-11-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-11-2021.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip"),
              col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
@@ -3355,486 +3391,491 @@ save(vaccine.sex, file="~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCoV2-Epide
 
 vaccine.town<-bind_rows(
   
+  read_excel(sheet = "Age – municipality", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-21-2022.xlsx", 
+             skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
+             col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
+    mutate(reportdate=as.Date("2022-09-22")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-09-15")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-7-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-7-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-09-08")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-31-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-31-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-09-01")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-24-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-24-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-08-25")) %>% relocate(reportdate),
   
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-17-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-17-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-08-18")) %>% relocate(reportdate),
   
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-10-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-10-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-08-11")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-3-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-3-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-08-04")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-27-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-27-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-07-28")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-20-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-20-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-07-21")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-14-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-14-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-07-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-7-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-7-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-07-07")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-30-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-30-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-06-30")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-23-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-23-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-06-23")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-16-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-16-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-06-16")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-9-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-9-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-06-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-2-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-2-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-06-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-26-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-26-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-05-26")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-19-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-19-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-05-19")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-12-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-12-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-05-12")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-5-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-5-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-05-05")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-28-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-28-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-04-28")) %>% relocate(reportdate),
 
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-21-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-21-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-04-21")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-14-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-14-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-04-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-7-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-7-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-04-07")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-31-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-31-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-03-31")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-24-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-24-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-03-24")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-17-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-17-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-03-17")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-10-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-10-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-03-10")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-3-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-3-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-03-03")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-24-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-24-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-02-24")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-17-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-17-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-02-17")) %>% relocate(reportdate),
 
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-10-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-10-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-02-10")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-2-3-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-2-3-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-02-03")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - muncipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-27-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-27-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-01-27")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-20-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-20-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-01-20")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-13-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-13-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-01-13")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-1-6-2022.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-1-6-2022.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2022-01-06")) %>% relocate(reportdate),
   
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-30-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-30-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2021-12-30")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-23-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-23-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
     mutate(reportdate=as.Date("2021-12-23")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-16-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-16-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-12-16")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-9-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-9-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-12-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-12-2-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-2-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-12-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-25-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-25-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-11-25")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-18-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-18-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-11-18")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-11-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-11-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-11-11")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-11-4-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-4-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-11-04")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-28-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-28-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-10-28")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-21-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-21-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-10-21")) %>% relocate(reportdate),
   
     read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-14-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-14-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-10-14")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-10-7-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-10-7-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-10-07")) %>% relocate(reportdate),
 
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-30-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-30-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-09-30")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-23-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-23-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-09-23")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-16-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-16-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-09-16")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-9-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-9-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-09-09")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-2-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-2-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-09-02")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-26-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-26-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-08-26")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-19-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-19-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-08-19")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-12-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-12-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-08-12")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age - municipality", 
-             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-8-5-2021.xlsx", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-8-5-2021.xlsx", 
              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
     mutate(reportdate=as.Date("2021-08-05")) %>% relocate(reportdate),
     
             read_excel(sheet = "Age – municipality", 
-                       "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-29-2021.xlsx", 
+                       "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-29-2021.xlsx", 
                        skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                        col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
               mutate(reportdate=as.Date("2021-07-29")) %>% relocate(reportdate),
               
               read_excel(sheet = "Age - municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-22-2021.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-22-2021.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                          col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                 mutate(reportdate=as.Date("2021-07-22")) %>% relocate(reportdate),
   
                 read_excel(sheet = "Age - municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                          col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                 mutate(reportdate=as.Date("2021-07-15")) %>% relocate(reportdate),
   
                 read_excel(sheet = "Age - municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-8-2021.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-8-2021.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                          col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                 mutate(reportdate=as.Date("2021-07-08")) %>% relocate(reportdate),
   
                 read_excel(sheet = "Age - municipality", 
-                           "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-1-2021.xlsx", 
+                           "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-1-2021.xlsx", 
                            skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                            col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                   mutate(reportdate=as.Date("2021-07-01")) %>% relocate(reportdate),
   
                   read_excel(sheet = "Age - municipality", 
-                           "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-24-2021.xlsx", 
+                           "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-24-2021.xlsx", 
                            skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                            col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                   mutate(reportdate=as.Date("2021-06-24")) %>% relocate(reportdate),
   
                   read_excel(sheet = "Age - municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-17-2021.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-17-2021.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                          col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                 mutate(reportdate=as.Date("2021-06-17")) %>% relocate(reportdate),
   
                 read_excel(sheet = "Age - municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-10-2021.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-10-2021.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                          col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                 mutate(reportdate=as.Date("2021-06-10")) %>% relocate(reportdate),
     
                 read_excel(sheet = "Age - municipality", 
-                           "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-6-3-2021.xlsx", 
+                           "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-6-3-2021.xlsx", 
                            skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                            col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                   mutate(reportdate=as.Date("2021-06-03")) %>% relocate(reportdate),
   
                 read_excel(sheet = "Age - municipality", 
-                           "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-27-2021.xlsx", 
+                           "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-27-2021.xlsx", 
                            skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                            col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                   mutate(reportdate=as.Date("2021-05-27")) %>% relocate(reportdate), 
   
                 read_excel(sheet = "Age - municipality", 
-                           "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-20-2021.xlsx", 
+                           "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-20-2021.xlsx", 
                            skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                            col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                   mutate(reportdate=as.Date("2021-05-20")) %>% relocate(reportdate), 
   
                   read_excel(sheet = "Age - municipality", 
-                             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-13-2021.xlsx", 
+                             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-13-2021.xlsx", 
                              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                     mutate(reportdate=as.Date("2021-05-13")) %>% relocate(reportdate), 
   
                     read_excel(sheet = "Age - municipality", 
-                             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-5-06-2021.xlsx", 
+                             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-5-06-2021.xlsx", 
                              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                     mutate(reportdate=as.Date("2021-05-06")) %>% relocate(reportdate),     
             
                      read_excel(sheet = "Age - municipality", 
-                             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-29-2021.xlsx", 
+                             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-29-2021.xlsx", 
                              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                              mutate(reportdate=as.Date("2021-04-29")) %>% relocate(reportdate),
             
                     read_excel(sheet = "Age - municipality", 
-                             "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-22-2021.xlsx", 
+                             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-22-2021.xlsx", 
                              skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                              col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                               mutate(reportdate=as.Date("2021-04-22")) %>% relocate(reportdate),
             
                     read_excel(sheet = "Age - municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-15-2021.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-15-2021.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                          col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                           mutate(reportdate=as.Date("2021-04-15")) %>% relocate(reportdate),
                     
                     read_excel(sheet = "Age - municipality", 
-                               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-08-2021.xlsx", 
+                               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-08-2021.xlsx", 
                                skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                                col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                              mutate(reportdate=as.Date("2021-04-08")) %>% relocate(reportdate),
                     
                     read_excel(sheet = "Age - municipality", 
-                               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-4-01-2021.xlsx", 
+                               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-4-01-2021.xlsx", 
                                skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                                col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                               mutate(reportdate=as.Date("2021-04-01")) %>% relocate(reportdate),
                     
                     read_excel(sheet = "Age - municipality", 
-                               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-25-2021.xlsx", 
+                               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-25-2021.xlsx", 
                                skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                                col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                               mutate(reportdate=as.Date("2021-03-25")) %>% relocate(reportdate),
                     
                     read_excel(sheet = "Age - municipality", 
-                               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-18-2021.xlsx", 
+                               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-18-2021.xlsx", 
                                skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                                col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                               mutate(reportdate=as.Date("2021-03-18")) %>% relocate(reportdate),
                     
                     read_excel(sheet = "Age - municipality", 
-                               "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-3-11-2021.xlsx", 
+                               "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-3-11-2021.xlsx", 
                                skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip"),
                                col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax")) %>%
                               mutate(reportdate=as.Date("2021-03-11")) %>% relocate(reportdate)) 
@@ -3844,7 +3885,7 @@ save(vaccine.town, file="~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCoV2-Epid
 
 
 vaccine.race<-read_excel(sheet = "Race & Ethnicity – municipality", 
-                         "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-9-14-2022.xlsx", 
+                         "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-9-21-2022.xlsx", 
                          skip = 2, col_types = c("skip", "text", "text", "numeric", "skip", "skip", "skip", 
                                                  "skip", "numeric","skip", "skip","skip", "skip","skip","numeric", "skip","skip"),
                          col_names = c("Town","Race_eth", "pop", "fullvax", "boostvax")) %>%
@@ -3866,7 +3907,7 @@ save(vaccine.race, file="vaccine.race.Rdata")
 #vaccine by race and zip code
   #these do not really work as small numbers are suppressed for confidentiality so column totals are much smaller than actual totals
       # vaccine.race.zip<-read_excel(sheet = "Race and Ethnicity - zip code", 
-      #          "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx", 
+      #          "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-15-2021.xlsx", 
       #          skip = 3, col_types = c("text", "numeric", "numeric", "numeric", "numeric", 
       #                                  "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", 
       #                                  "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric", 
@@ -3878,7 +3919,7 @@ save(vaccine.race, file="vaccine.race.Rdata")
       #     mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode))
       #   
       # vaccine.race.town<-read_excel(sheet = "Race and Ethnicity - muni.", 
-      #    "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/weekly-covid-19-municipality-vaccination-report-7-9-2021.xlsx", 
+      #    "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-7-9-2021.xlsx", 
       #    skip=1, col_types = c("text", "text","text", "numeric", "numeric", "numeric", "numeric", "numeric", "numeric",
       #                          "numeric", "numeric", "numeric", "numeric", "numeric")) %>% janitor::clean_names() %>%
       #   group_by(race_ethnicity) %>%
