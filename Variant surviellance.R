@@ -2,7 +2,7 @@ library(zoo)
 library(tidyverse)
 library(ggsci)
 library(ggrepel)
-setwd("~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing")
+setwd("~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses")
 load("mdph_testingbydate.Rdata")
 load("CDCnowcast.Rdata")
 
@@ -13,7 +13,7 @@ CDCnowcast.long <- CDCnowcast %>%
   mutate(share = na.approx(share, maxgap = 60, rule = 2)) %>%
   ungroup()
 
-recent.nowcast.variants<- (CDCnowcast.long %>% filter(date == max(date, na.rm = TRUE)) %>% filter(usa_or_hhsregion == "1") %>% filter(variant != "Other") %>% filter(share >0.004) )$variant
+recent.nowcast.variants<- (CDCnowcast.long %>% filter(date == max(date, na.rm = TRUE)) %>% filter(usa_or_hhsregion == "1") %>% filter(variant != "Other") %>% filter(share >0) )$variant
 jama.pal <- c(pal_jama(alpha = 0.8)(7), pal_jama(alpha = 0.8)(7), pal_jama(alpha = 0.8)(7), pal_jama(alpha = 0.8)(7))
 
 variant.calc <- left_join(
@@ -98,7 +98,7 @@ variant.incidence<-  variant.calc.collapsed %>%
 variant.incidence
 
 
-data_path <- "~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing/GISAID MA files" 
+data_path <- "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/GISAID MA files" 
 files <-  dir(data_path , pattern = "*.tsv")
 
 # gathering ~twice weekly files downloaded from GISAIDS
@@ -137,16 +137,16 @@ library(treemapify)
 mycolors <- c(pal_npg(alpha = 0.7)(9), pal_npg(alpha = 0.7)(9), pal_npg(alpha = 0.7)(9), pal_npg(alpha = 0.7)(9), pal_npg(alpha = 0.7)(9))
 
 recent.viruses <- MAviruses %>%
-  filter(date > max(MAviruses$date) - 8) %>%
+  filter(date > max(MAviruses$date) - 11) %>%
   count(pangolin_lineage) %>%
-  mutate(pangolin_lineage = fct_reorder(pangolin_lineage, n, .desc = TRUE)) %>%
+  mutate(pangolin_lineage = fct_reorder(pangolin_lineage, n, .desc = TRUE)) %>% arrange(desc(n)) %>% filter( !is.na(pangolin_lineage)) %>% slice_head(n = 30) %>%
   ggplot() +
   geom_treemap(aes(area = n , fill = pangolin_lineage)) +
   geom_treemap_text(aes(label = pangolin_lineage, area =n), color = "white") +
   scale_fill_manual(values = mycolors) +
   guides(fill = "none") +
   labs(title="Variant Proportions, Massachusetts",
-       subtitle = paste0("Sequences from ", as.Date(max(MAviruses$date) - 7), " to ", as.Date(max(MAviruses$date))),
+       subtitle = paste0("Sequences from ", as.Date(max(MAviruses$date) - 10), " to ", as.Date(max(MAviruses$date))),
        caption = "Source: GISAID")
 recent.viruses
 ggsave("recent.viruses.pdf", width = 10, height =8)

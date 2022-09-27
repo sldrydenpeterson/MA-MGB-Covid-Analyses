@@ -371,6 +371,43 @@ covidtowns <-rbind(
   select(date, Town, Count, Tests, Start_Date, End_Date)
 )
 
+#Importing MGB case data
+
+#adapted from https://clauswilke.com/blog/2016/06/13/reading-and-combining-many-tidy-data-files-in-r/
+data_path <- "~/Dropbox (Partners HealthCare)/covid/early therapy/program data/MGB Covid Cases" 
+files <-  dir(data_path , pattern = "*.csv")
+
+data <- data_frame(filename = files) %>% # create a data frame
+  # holding the file names
+  mutate(file_contents = map(filename,          # read files into
+                             ~ read_csv(file.path(data_path, .))) # a new data column
+  )  
+
+MGBcovidcases <-
+  unnest(data, cols = c(file_contents)) %>%
+  clean_names() %>%
+  mutate(dxdate = mdy(start_date),
+         month = month(dxdate),
+         race.eth = case_when(
+           patient_race == "Native Hawaiian or Other Pacific Islander" ~ "NA, AN, NH, or PI",
+           patient_race == "American Indian or Alaska Native" ~ "NA, AN, NH, or PI",
+           patient_ethnic_group == "Hispanic" ~ "Hispanic or Latinx",
+           patient_race == "Black or African American" ~ "Black",
+           patient_race == "White" ~ "White",
+           patient_race == "Asian" ~ "Asian",
+           patient_race == "Other" ~ "Other or unavailable",
+           patient_race == "Unavailable" ~ "Other or unavailable",
+           patient_race == "None of the above" ~ "Other or unavailable",
+           patient_race == "Declined" ~ "Other or unavailable",
+           TRUE ~ "Other or unavailable"),
+         week = as.Date(cut(dxdate, "week")),
+         zipcode = fixzip(postal_code)) %>%
+  arrange(desc(dxdate)) %>% 
+  distinct(mrn, week, .keep_all = TRUE) %>%
+  distinct(mrn,  month, .keep_all = TRUE) %>%
+  filter(dxdate < max(dxdate)) %>%
+  select(mrn, dxdate, week, age_in_years, legal_sex, race.eth, zipcode)
+
 
 #Importing BPHC case data from revised dashboard
 

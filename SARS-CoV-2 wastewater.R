@@ -4,7 +4,7 @@ library(viridis)
 library(ggrepel)
 library(ggsci)
 library(patchwork)
-setwd("~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing")
+setwd("~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses")
 
 load("mwra.wastewater.covid.Rdata")
 

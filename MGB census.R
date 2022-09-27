@@ -122,7 +122,7 @@ ggsave("~/Dropbox (Partners HealthCare)/R files/covid/MGBcensus.png")
 
 
 
-load(file="mdph_hosp.Rdata") 
+load(file="~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/mdph_hosp.Rdata") 
 
 mdph.inpatient <-mdph_hosp %>%
   rename(Unvaccinated=inpatient.unvax,
@@ -169,19 +169,15 @@ ggplot( aes(x=date, group=vax.status, color=vax.status)) +
                                       "Vaccinated Covid\nInpatients" = "pct.btcovid")) 
 
  
- pct.mdph.inpatient.plot<- pct.mdph.inpatient %>%
+ pct.mdph.inpatient.plot<- pct.mdph.inpatient %>% filter(inpatients == "All Covid\nInpatients") %>%
     ggplot()+
    annotate("rect", ymin=2, ymax=4, xmin=as.Date("2020-01-01"), xmax=as.Date("2023-01-01"), fill="#00A1D599")+
-   annotate("text", y=3, x=as.Date("2021-02-01"), label= "Range of Peak Influenza\nInpatient Percentage (2017-2020)", color="#374E55FF", hjust=0)+
-   geom_hline(yintercept=10, linetype="dotted") +
-   geom_hline(yintercept=15, linetype="dotted") +
-   annotate("text", y=10.5, x=as.Date("2021-04-01"), label= "CDC Medium (increasing screening)", color="#374E55FF", vjust=1, hjust=0)+
-   annotate("text", y=15.5, x=as.Date("2021-04-01"), label= "CDC High (public masking)", color="#374E55FF", vjust=1, hjust=0)+
+   annotate("text", y=3, x=as.Date("2021-02-01"), label= "Range of Peak Influenza\nInpatient Percentage (2017-2020)", color="#374E55FF", hjust=0)+ 
     geom_line(aes(x=date, y=census, group=inpatients, color=inpatients), size=1.5)+
     theme_classic() + theme(aspect.ratio=.8, plot.title = element_text(size = rel(1.5)),
                             axis.title = element_text(size = rel(1.5)), axis.text = element_text(size = rel(1.5)))+
     guides(color="none")+
-    geom_label_repel(data= pct.mdph.inpatient %>%
+    geom_label_repel(data= pct.mdph.inpatient %>% filter(inpatients == "All Covid\nInpatients") %>%
                        filter(!is.na(census) & date == max(date)), 
                      aes(label= paste0(inpatients, "\n", round(census, 1), "%"),
                          x = date ,  y = census, color=inpatients),
