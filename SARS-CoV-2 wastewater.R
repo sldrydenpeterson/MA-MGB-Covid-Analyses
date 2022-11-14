@@ -64,7 +64,7 @@ wastewater.smooth <-
             filter(year == "Current") %>%
             mutate(mean.log10 = log10(mean)) %>%
             summarize(smoothed =  predict(loess(mean ~ index, span=0.035), na.rm = TRUE),
-                      smoothed.log10 =  predict(loess(mean.log10 ~ index, span=0.04), na.rm = TRUE)),
+                      smoothed.log10 =  predict(loess(mean.log10 ~ index, span=0.035), na.rm = TRUE)),
           sewage %>% filter(year == "Current" & !is.na(mean)) %>% select(date)) %>%
       mutate(year = "Current"),
     
@@ -128,6 +128,9 @@ wastewater.recent.log<-
                    hjust=0.5, min.segment.length =0 , nudge_x = 90, nudge_y = .2)
 
 wastewater.recent.log
+ggsave("wastewater.recent.pdf")
+ggsave("wastewater.recent.png")
+
 
 wastewater.recent + wastewater.recent.log + plot_layout(ncol =2)
 ggsave("wastewater.recent.pdf", width = 20, height = 10)
@@ -184,8 +187,8 @@ ma.recent<-
                            axis.title = element_text(size = rel(1.5)), axis.text = element_text(size = rel(1.5)))+
   geom_col(data = mdph_testingbydate.years %>% filter(year == "Current"), aes(x=date, y=incidence1day), color="grey", alpha =0.3)+
   geom_line(data = mdph_testingbydate.years, aes(x=date, y=rolling7day, group=year, color=year),linetype="solid", alpha=.7, size=2.5)+
-  labs(x="Date of Test (Current Year)", y="Daily Incidence, per 100,000",
-       title="Incidence of Covid-19 in Massachusetts",
+  labs(x="Date of Test (Current Year)", y="Cases per 100,000",
+       title="Incidence of reported COVID, Massachusetts",
        subtitle = paste0("7-Day running average for current and prior year | Data through ", max(mdph_testingbydate$date)),
        caption="Source: MDPH" )+
   guides(color="none") +
