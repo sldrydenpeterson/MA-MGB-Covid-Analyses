@@ -15,9 +15,9 @@ top10wastewater <- sewage %>%
   group_by(week) %>%
   summarize(week.mean = sum(mean, na.rm = TRUE)) %>%
   arrange(desc(week.mean)) %>%
-  mutate(Year = case_when(
+  mutate(Year = as.factor(case_when(
     as.Date(week) < as.Date("2021-06-01") ~ "Last Year",
-    as.Date(week) >= as.Date("2021-06-01") ~ "Current Year")) %>%
+    as.Date(week) >= as.Date("2021-06-01") ~ "Current Year"))) %>%
   slice(1:10) %>%
   ggplot(aes(x=week, y= week.mean, fill=Year)) +
   geom_col() +
@@ -107,28 +107,30 @@ wastewater.recent
 #log transformed
 wastewater.recent.log<-
   ggplot() +
-  theme_classic() +  theme(aspect.ratio=1, plot.title = element_text(size = rel(1.5)),
+  theme_classic() +  theme(aspect.ratio=.8, plot.title = element_text(size = rel(1.5)),
                            axis.title = element_text(size = rel(1.5)), axis.text = element_text(size = rel(1.5)))+
   geom_point(data= sewage %>% filter(year == "Current"), aes(x=date, y=log10(mean)), alpha=.5, size=1.5, color= "#8A9197FF") +
-  geom_line(data= wastewater.smooth, aes(x=date, y=smoothed.log10, color=year, group=year ), 
-            alpha=.7, size=2.5) +
-  labs(x="Date (current year)", y="Log10 SARS-CoV-2 Load (copies/mL)",
-       title="Wastewater SARS-CoV-2 in Metro Boston",
-       subtitle = paste0("LOESS average for current and prior year | Last measurement: ", as.Date(last(sewage$date))),
+  geom_line(data= wastewater.smooth %>% 
+              mutate(year = fct_relevel(year, "Last Year")),
+            aes(x=date, y=smoothed.log10, color=year, group=year), size =2, 
+            alpha=.8) +
+  labs(x="", y="SARS-CoV-2 (log copies/mL)",
+       title="Wastewater COVID in Metro Boston",
+       subtitle = paste0("Smoothed average for current and prior year | Last measurement: ", as.Date(last(sewage$date))),
        caption="Average of Southern and Northern sewer lines; Source: Massachusetts Water Resources Authority" )+
-  scale_colour_npg() +
+  scale_colour_jama() +
   # scale_color_jama( alpha = .8)+
-  guides(color="none") +
-  coord_cartesian(xlim=c(Sys.Date()+90 -365, Sys.Date()+90), ylim=c(1,4.5))+
+  guides(color="none", size = "none") +
+  coord_cartesian(xlim=c(Sys.Date()+90 -340, Sys.Date()+90), ylim=c(1,4.5))+
   scale_x_date(breaks = scales::pretty_breaks(10), labels = scales::label_date_short()) +
   scale_y_continuous(breaks = scales::pretty_breaks(n=10)) +
   geom_hline(yintercept = 0, linetype ="dotted") +
-  geom_label_repel(data = wastewater.smooth %>% filter(date == Sys.Date()-5),
+  geom_label_repel(data = wastewater.smooth %>% filter(date == Sys.Date()-7),
                    aes(x = date, y = smoothed.log10, label = paste0(year), color= year),
                    hjust=0.5, min.segment.length =0 , nudge_x = 90, nudge_y = .2)
 
 wastewater.recent.log
-ggsave("wastewater.recent.pdf")
+ggsave("wastewater.recent.pdf", width = 10, height = 8)
 ggsave("wastewater.recent.png")
 
 

@@ -14,7 +14,7 @@ setwd("~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses")
 
 
 #MDPH covid case file,  reads in most recent case/testing excel file from their website
-download.file("https://www.mass.gov/doc/covid-19-raw-data-november-10-2022/download", "mdphcase_recent.xlsx")
+download.file("https://www.mass.gov/doc/covid-19-raw-data-december-8-2022/download", "mdphcase_recent.xlsx")
 mdphfile<- "mdphcase_recent.xlsx"
 
 
@@ -428,6 +428,8 @@ current <-read_excel("~/Dropbox (Partners HealthCare)/Covid/Early therapy/progra
                      sheet="Sheet1")  %>% clean_names()
 
 
+
+
 OAV.rx <-rbind(historic, Sept4, Oct22, current)%>%
   mutate(rxdate=mdy(ordered_date),
          week = as.Date(cut(rxdate, "week")),
@@ -473,6 +475,57 @@ OAV.bydate <-OAV.rx %>%
   ungroup() 
 
 
+### flu prescribing
+current.flu <-read_excel("~/Dropbox (Partners HealthCare)/Covid/Early therapy/program data/Outpatient Prescriptions_flu_sinceFeb1.xlsx",   #file exported from SlicerDicer: OAV Prescribing Oct 23 onwards
+                         sheet="Sheet1")  %>% clean_names()
+
+flu.rx <-current.flu %>%
+  mutate(rxdate=mdy(ordered_date),
+         week = as.Date(cut(rxdate, "week")),
+         epiweek = epiweek(rxdate),
+         isoweek = isoweek(rxdate),
+         postal_code = fixzip(postal_code)) %>%
+  arrange(desc(rxdate)) %>%
+  distinct(patient_name, epiweek, .keep_all = TRUE) %>%  #to remove prescriptions to same patient in same few days
+  distinct(patient_name, week, .keep_all = TRUE) %>%
+  distinct(rxdate, patient_name, .keep_all = TRUE) %>%
+  filter(str_detect(patient_name, "TEST,", negate = TRUE) & str_detect(patient_name, "ZZZZ", negate = TRUE)   # removing fake names used for training
+         & str_detect(patient_name, "CLAUS,MRS SANTA", negate = TRUE) & str_detect(patient_name, "CLAUS,SANTA", negate = TRUE)
+         & str_detect(patient_name, "SANTA,CLAUS", negate = TRUE) ) %>%
+  mutate(rxdate=mdy(ordered_date),
+         drug = case_when(
+           str_detect(order_name, "oselt") ~ "Oseltamivir",
+           str_detect(order_name, "zanam") ~ "Zanamivir",
+           TRUE ~ "Missing"
+         )) %>%
+  filter(rxdate > as.Date("2022-01-09"), rxdate < as.Date(Sys.Date())) %>%
+  mutate(patient_name = str_to_title(patient_name))%>%
+  mutate(
+    race.eth = case_when(
+      patient_race == "Native Hawaiian or Other Pacific Islander" ~ "NA, AN, NH, or PI",
+      patient_race == "American Indian or Alaska Native" ~ "NA, AN, NH, or PI",
+      patient_ethnic_group == "Hispanic" ~ "Hispanic or Latinx",
+      patient_race == "Black or African American" ~ "Black",
+      patient_race == "White" ~ "White",
+      patient_race == "Asian" ~ "Asian",
+      patient_race == "Other" ~ "Other or unavailable",
+      patient_race == "Unavailable" ~ "Other or unavailable",
+      patient_race == "None of the above" ~ "Other or unavailable",
+      patient_race == "Declined" ~ "Other or unavailable",
+      TRUE ~ "Other or unavailable"),
+    zipcode = fixzip(postal_code)) %>%
+  select(rxdate,week, drug, race.eth, zipcode, patient_name, age_in_years)
+
+flutx <-flu.rx %>%
+  group_by(rxdate) %>%
+  count(drug) %>% 
+  rename(treated_num = n,
+         date = rxdate) %>%
+  ungroup() %>%
+  mutate(treated_avg = RcppRoll::roll_mean(treated_num, n = 7, align = "right", fill = NA))
+
+save(flutx, file="flutx.Rdata")
+
 #####################
 # mAb administered, as recorded in Tableau dashboard (exported excluding Evusheld as .csv)
 #####################
@@ -487,6 +540,7 @@ mab<- read_csv("~/Dropbox (Partners HealthCare)/Covid/Early therapy/program data
   summarize(treated_num=sum(treated_num, na.rm= TRUE)) %>%
   ungroup() %>%
   mutate(drug = case_when(
+    rxdate > as.Date("2022-11-09") ~ "Remdesivir",
     rxdate > as.Date("2022-03-17") ~ "Bebtelovimab",
     rxdate > as.Date("2021-12-23") ~ "Sotrovimab",
     rxdate > as.Date("2021-03-18") & route == "Subcutaneous" ~ "Casirimab-Imdevimab",
@@ -510,6 +564,8 @@ earlytx <- left_join(rbind(mab, OAV.bydate), rbind(mab, OAV.bydate) %>%
                        mutate(treated_avg = RcppRoll::roll_mean(n, n = 7, align = "right", fill = NA)), by = "rxdate") %>%
   mutate(drug = fct_relevel(drug, "Nirmatrelvir")) %>%
   rename(date= rxdate) 
+
+save(earlytx, file="earlytx.Rdata")
 
 # earlytx %>%
 #   group_by(drug) %>%
@@ -1018,6 +1074,99 @@ write_csv(mdph_age, "~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCoV2-Epidemic
 # vaccine by zipcode by age group table
 vaccine.anydose.age<-(bind_rows(
   
+  
+  read_excel(sheet = "Age – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-7-2022.xlsx",
+             skip = 2, 
+             col_types = c("text", 
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "skip","skip","skip","skip","skip","skip","skip", "skip","skip","skip",
+                           "skip","skip",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric"),
+             col_names = c("zipcode", 
+                           "age0to4","age5to11", "age12to15", "age16to19", "age20to29", "age30-39", "age40to49", 
+                           "age50to59", "age60to64", "age65-69", "age70to74", "age75plus",
+                           "age0to4.full", "age5to11.full", "age12to15.full", "age16to19.full", "age20to29.full", "age30-39.full", "age40to49.full", 
+                           "age50to59.full", "age60to64.full", "age65-69.full", "age70to74.full", "age75plus.full",
+                           "age0to4.boost", "age5to11.boost", "age12to15.boost", "age16to19.boost", "age20to29.boost", "age30-39.boost", "age40to49.boost", "age50to59.boost",
+                           "age60to64.boost", "age65-69.boost", "age70to74.boost", "age75plus.boost")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           reportdate=as.Date("2022-12-08")) %>% relocate(reportdate),
+  
+    read_excel(sheet = "Age – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-30-2022.xlsx",
+             skip = 2, 
+             col_types = c("text", 
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "skip","skip","skip","skip","skip","skip","skip", "skip","skip","skip",
+                           "skip","skip",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric"),
+             col_names = c("zipcode", 
+                           "age0to4","age5to11", "age12to15", "age16to19", "age20to29", "age30-39", "age40to49", 
+                           "age50to59", "age60to64", "age65-69", "age70to74", "age75plus",
+                           "age0to4.full", "age5to11.full", "age12to15.full", "age16to19.full", "age20to29.full", "age30-39.full", "age40to49.full", 
+                           "age50to59.full", "age60to64.full", "age65-69.full", "age70to74.full", "age75plus.full",
+                           "age0to4.boost", "age5to11.boost", "age12to15.boost", "age16to19.boost", "age20to29.boost", "age30-39.boost", "age40to49.boost", "age50to59.boost",
+                           "age60to64.boost", "age65-69.boost", "age70to74.boost", "age75plus.boost")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           reportdate=as.Date("2022-12-01")) %>% relocate(reportdate),
+
+  read_excel(sheet = "Age – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-23-2022.xlsx",
+             skip = 2, 
+             col_types = c("text", 
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "skip","skip","skip","skip","skip","skip","skip", "skip","skip","skip",
+                           "skip","skip",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric"),
+             col_names = c("zipcode", 
+                           "age0to4","age5to11", "age12to15", "age16to19", "age20to29", "age30-39", "age40to49", 
+                           "age50to59", "age60to64", "age65-69", "age70to74", "age75plus",
+                           "age0to4.full", "age5to11.full", "age12to15.full", "age16to19.full", "age20to29.full", "age30-39.full", "age40to49.full", 
+                           "age50to59.full", "age60to64.full", "age65-69.full", "age70to74.full", "age75plus.full",
+                           "age0to4.boost", "age5to11.boost", "age12to15.boost", "age16to19.boost", "age20to29.boost", "age30-39.boost", "age40to49.boost", "age50to59.boost",
+                           "age60to64.boost", "age65-69.boost", "age70to74.boost", "age75plus.boost")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           reportdate=as.Date("2022-11-24")) %>% relocate(reportdate),
+  
+    read_excel(sheet = "Age – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-16-2022.xlsx",
+             skip = 2, 
+             col_types = c("text", 
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric",
+                           "skip","skip","skip","skip","skip","skip","skip", "skip","skip","skip",
+                           "skip","skip",
+                           "numeric", "numeric", "numeric", "numeric", "numeric","numeric",  "numeric","numeric", "numeric","numeric",  
+                           "numeric","numeric"),
+             col_names = c("zipcode", 
+                           "age0to4","age5to11", "age12to15", "age16to19", "age20to29", "age30-39", "age40to49", 
+                           "age50to59", "age60to64", "age65-69", "age70to74", "age75plus",
+                           "age0to4.full", "age5to11.full", "age12to15.full", "age16to19.full", "age20to29.full", "age30-39.full", "age40to49.full", 
+                           "age50to59.full", "age60to64.full", "age65-69.full", "age70to74.full", "age75plus.full",
+                           "age0to4.boost", "age5to11.boost", "age12to15.boost", "age16to19.boost", "age20to29.boost", "age30-39.boost", "age40to49.boost", "age50to59.boost",
+                           "age60to64.boost", "age65-69.boost", "age70to74.boost", "age75plus.boost")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           reportdate=as.Date("2022-11-17")) %>% relocate(reportdate),
+    
   read_excel(sheet = "Age – zip code", 
              "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-9-2022.xlsx",
              skip = 2, 
@@ -2585,6 +2734,66 @@ save(vaccine.anydose.age, file="~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCo
 vaccine.sex<-(bind_rows(
 
   read_excel(sheet = "Sex – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-7-2022.xlsx", 
+             skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
+                                     "numeric", "numeric", "skip", "skip", "skip",
+                                     "numeric", "numeric", "numeric"),
+             col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
+                           "fullvax.female", "fullvax.male", "fullvax.other",
+                           "boost.female", "boost.male", "boost.other")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           fullvax.total=sum(c(fullvax.female, fullvax.male, fullvax.other), na.rm = TRUE),
+           boostvax.total=sum(c(boost.female, boost.male, boost.other), na.rm = TRUE),
+           anyvax.total=sum(c(anyvax.female, anyvax.male, anyvax.other), na.rm = TRUE),
+           reportdate=as.Date("2022-12-08")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Sex – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-30-2022.xlsx", 
+             skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
+                                     "numeric", "numeric", "skip", "skip", "skip",
+                                     "numeric", "numeric", "numeric"),
+             col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
+                           "fullvax.female", "fullvax.male", "fullvax.other",
+                           "boost.female", "boost.male", "boost.other")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           fullvax.total=sum(c(fullvax.female, fullvax.male, fullvax.other), na.rm = TRUE),
+           boostvax.total=sum(c(boost.female, boost.male, boost.other), na.rm = TRUE),
+           anyvax.total=sum(c(anyvax.female, anyvax.male, anyvax.other), na.rm = TRUE),
+           reportdate=as.Date("2022-12-01")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Sex – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-23-2022.xlsx", 
+             skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
+                                     "numeric", "numeric", "skip", "skip", "skip",
+                                     "numeric", "numeric", "numeric"),
+             col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
+                           "fullvax.female", "fullvax.male", "fullvax.other",
+                           "boost.female", "boost.male", "boost.other")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           fullvax.total=sum(c(fullvax.female, fullvax.male, fullvax.other), na.rm = TRUE),
+           boostvax.total=sum(c(boost.female, boost.male, boost.other), na.rm = TRUE),
+           anyvax.total=sum(c(anyvax.female, anyvax.male, anyvax.other), na.rm = TRUE),
+           reportdate=as.Date("2022-11-24")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Sex – zip code", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-16-2022.xlsx", 
+             skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
+                                     "numeric", "numeric", "skip", "skip", "skip",
+                                     "numeric", "numeric", "numeric"),
+             col_names = c("zipcode", "anyvax.female", "anyvax.male", "anyvax.other",
+                           "fullvax.female", "fullvax.male", "fullvax.other",
+                           "boost.female", "boost.male", "boost.other")) %>%
+    rowwise(zipcode) %>%
+    mutate(zipcode= if_else(nchar(zipcode)<5, paste0(0,zipcode), zipcode),
+           fullvax.total=sum(c(fullvax.female, fullvax.male, fullvax.other), na.rm = TRUE),
+           boostvax.total=sum(c(boost.female, boost.male, boost.other), na.rm = TRUE),
+           anyvax.total=sum(c(anyvax.female, anyvax.male, anyvax.other), na.rm = TRUE),
+           reportdate=as.Date("2022-11-17")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Sex – zip code", 
              "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-9-2022.xlsx", 
              skip = 2, col_types = c("text", "numeric", "numeric", "numeric", "numeric",
                                      "numeric", "numeric", "skip", "skip", "skip",
@@ -3806,6 +4015,29 @@ save(vaccine.sex, file="~/Dropbox (Partners HealthCare)/GitHub/MA-SARSCoV2-Epide
 
 
 vaccine.town<-bind_rows(
+  read_excel(sheet = "Age – municipality", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-12-7-2022.xlsx", 
+             skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
+             col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
+    mutate(reportdate=as.Date("2022-12-08")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Age – municipality", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-30-2022.xlsx", 
+             skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
+             col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
+    mutate(reportdate=as.Date("2022-12-01")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Age – municipality", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-23-2022.xlsx", 
+             skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
+             col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
+    mutate(reportdate=as.Date("2022-11-24")) %>% relocate(reportdate),
+  
+  read_excel(sheet = "Age – municipality", 
+             "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-16-2022.xlsx", 
+             skip = 2, col_types = c("skip", "text", "text", "numeric", "numeric", "numeric", "skip", "skip", "numeric","skip", "skip","skip", "skip","skip", "numeric","skip","skip"),
+             col_names = c("Town","Age_group", "pop", "proportion_pop", "onedose", "fullvax", "boostvax")) %>%
+    mutate(reportdate=as.Date("2022-11-17")) %>% relocate(reportdate),
   
   read_excel(sheet = "Age – municipality", 
              "~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/weekly-covid-19-municipality-vaccination-report-11-9-2022.xlsx", 

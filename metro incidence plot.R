@@ -7,7 +7,7 @@ library(patchwork)
 library(readxl)
 library(ggsci)
 
-setwd("~/Dropbox (Partners HealthCare)/GitHub/Ma-Covid-Testing")
+setwd("~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analysis")
 
 ### MA data
 #read in .csv files of zipcodes and population

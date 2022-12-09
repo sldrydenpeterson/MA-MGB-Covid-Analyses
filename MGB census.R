@@ -3,17 +3,17 @@ library(tidyverse)
 library(readxl)
 library(ggrepel)
 #import inpatient and MDPH numbers from csv, fix date, and make long dataset
-MGBcensus <-read_excel("~/Dropbox (Partners HealthCare)/R files/covid/MGB census.xlsx", sheet="MGB census")  %>% filter(!is.na(Brigham))
+MGBcensus <-read_excel("~/Dropbox (Partners HealthCare)/R files/covid/MGB census.xlsx", sheet="MGB census", guess_max = 10000)  %>% filter(!is.na(Brigham))
 MGBcensus$date <-(lubridate::ymd(MGBcensus$date))
 
 #MGB acute care hospital beds
 hospitalname<- c("Mass General", "Brigham", "NSMC-Salem", "Newton-Wellesley",
                  "Wentworth-Douglass", "Brigham\nFaulkner", "Cooley-Dickinson", 
-                 "Martha's Vineyard", "Nantucket Cottage", "Brigham CoV-Risk", "All MGB Acute\nHospitals", "MGB Vaccinated\nInpatients", "MGB Unvaccinated\nInpatients")
-beds<-c(1057, 793, 395, 273, 178, 162, 140, 25, 19, NA, 3042, NA, NA)
+                 "Martha's Vineyard", "Nantucket Cottage", "Brigham CoV-Risk", "Influenza\ninpatients", "All MGB Acute\nHospitals", "MGB Vaccinated\nInpatients", "MGB Unvaccinated\nInpatients")
+beds<-c(1057, 793, 395, 273, 178, 162, 140, 25, 19, NA, NA,  3042, NA, NA)
 Hospital<-c("Mass.General", "Brigham", "NSMC.Salem","Newton.Wellesley","Wentworth.Douglass", 
             "Brigham.Faulkner", "Cooley.Dickinson", "Marthas.Vineyard", "Nantucket.Cottage",
-            "BWH.PUI", "All.MGB.Acute", "All.MGB.Acute.vax", "All.MGB.Acute.unvax")
+            "BWH.PUI", "flu.mgb", "All.MGB.Acute", "All.MGB.Acute.vax", "All.MGB.Acute.unvax")
 
 #make combined date frame
 InpatientBeds<- data.frame(hospitalname,Hospital, beds)
@@ -62,6 +62,103 @@ mgbcensus
 #        dpi = 160, limitsize = TRUE)
 ggsave("~/Dropbox (Partners HealthCare)/R files/covid/MGBcensus.pdf")
 ggsave("~/Dropbox (Partners HealthCare)/R files/covid/MGBcensus.png")
+
+
+
+mgbflucensus<- MGBcensuslong %>%
+  filter(!is.na(Cases)) %>%
+  filter(Hospital == "flu.mgb") %>%
+  ggplot( aes(x=date, group=hospitalname, color=hospitalname)) +
+  geom_hline(yintercept=0, linetype="dotted") +
+  geom_hline(yintercept = 250, linetype = "dashed") +
+  theme_classic() + theme(aspect.ratio = 0.75, plot.title = element_text(size = rel(1.5)),
+                          axis.title = element_text(size = rel(1.5)), axis.text = element_text(size = rel(1.5)))+
+  geom_line(aes(y=Cases), alpha=.7, size=1.5) +
+  scale_color_jama(palette = c("default"), alpha = .8) +
+  # scale_color_viridis(discrete = TRUE, end=0.5, option = "D")+
+  geom_label_repel(data=MGBcensuslong %>%
+                     filter(!is.na(Cases)) %>%
+                     filter(Hospital == "flu.mgb") %>%
+                     filter(date == max(date)), aes(label= paste0(hospitalname, "\nn=",Cases),
+                                                    x = date ,  y = Cases),
+                   hjust=0.5,
+                   xlim=c(Sys.Date()+20, as.Date(NA)))+
+  coord_cartesian(xlim=c(as.Date("2021-08-01"), Sys.Date()+90), ylim=c(0,650))+
+  scale_x_date(breaks = scales::pretty_breaks(10), labels=scales::label_date_short()) +
+  labs(x="Date",
+       y="Number (@ 6am)",
+       title="MGB Influenza Inpatients",
+       subtitle = max(bwhonly$date),
+       caption="Source: Daily inpatient hospital censuses (Influenza Epic flag)" )+
+  guides(color="none")
+mgbflucensus
+
+
+library(ggsci)
+library(tidyverse)
+library(readxl)
+library(ggrepel)
+#import inpatient and MDPH numbers from csv, fix date, and make long dataset
+MGBcensus <-read_excel("~/Dropbox (Partners HealthCare)/R files/covid/MGB census.xlsx", sheet="MGB census")  %>% filter(!is.na(Brigham))
+MGBcensus$date <-(lubridate::ymd(MGBcensus$date))
+
+#MGB acute care hospital beds
+hospitalname<- c("Mass General", "Brigham", "NSMC-Salem", "Newton-Wellesley",
+                 "Wentworth-Douglass", "Brigham\nFaulkner", "Cooley-Dickinson", 
+                 "Martha's Vineyard", "Nantucket Cottage", "Brigham CoV-Risk", "All MGB Acute\nHospitals", "MGB Vaccinated\nInpatients", "MGB Unvaccinated\nInpatients")
+beds<-c(1057, 793, 395, 273, 178, 162, 140, 25, 19, NA, 3042, NA, NA)
+Hospital<-c("Mass.General", "Brigham", "NSMC.Salem","Newton.Wellesley","Wentworth.Douglass", 
+            "Brigham.Faulkner", "Cooley.Dickinson", "Marthas.Vineyard", "Nantucket.Cottage",
+            "BWH.PUI", "All.MGB.Acute", "All.MGB.Acute.vax", "All.MGB.Acute.unvax")
+
+#make combined date frame
+InpatientBeds<- data.frame(hospitalname,Hospital, beds)
+
+#Create long datasets, separately for hospitals
+MGBcensuslong <- left_join(MGBcensus %>%
+                             pivot_longer(!date, names_to = "Hospital", values_to = "Cases"),
+                           InpatientBeds, by = "Hospital") %>%
+  mutate(PercentCovid = Cases/beds) %>%
+  filter(!is.na(Cases))
+
+
+
+# BWH census
+#limit to BWH, BWFH, and all combined
+bwhonly<- MGBcensuslong %>%
+  filter(Hospital == "Brigham" | Hospital == "Brigham.Faulkner" | Hospital == "Mass.General" | Hospital == "All.MGB.Acute")
+
+
+mgbcensus<- MGBcensuslong %>%
+  filter(!is.na(Cases)) %>%
+  ggplot( aes(x=date, group=hospitalname, color=hospitalname)) +
+  geom_hline(yintercept=0, linetype="dotted") +
+  geom_hline(yintercept = 250, linetype = "dashed") +
+  theme_classic() + theme(aspect.ratio = 0.75, plot.title = element_text(size = rel(1.5)),
+                          axis.title = element_text(size = rel(1.5)), axis.text = element_text(size = rel(1.5)))+
+  geom_line(aes(y=Cases), alpha=.7, size=1.5) +
+  scale_color_jama(palette = c("default"), alpha = .8) +
+  # scale_color_viridis(discrete = TRUE, end=0.5, option = "D")+
+  geom_label_repel(data=bwhonly[!is.na(bwhonly$Cases),] %>%
+                     filter(date == max(date)), aes(label= paste0(hospitalname, "\nn=",Cases),
+                                                    x = date ,  y = Cases),
+                   hjust=0.5,
+                   xlim=c(Sys.Date()+20, as.Date(NA)))+
+  coord_cartesian(xlim=c(as.Date("2021-08-01"), Sys.Date()+90), ylim=c(0,650))+
+  scale_x_date(breaks = scales::pretty_breaks(10), labels=scales::label_date_short()) +
+  labs(x="Date",
+       y="Number (@ 6am)",
+       title="MGB Covid-19 Inpatients",
+       subtitle = max(bwhonly$date),
+       caption="Source: Daily inpatient hospital censuses (Covid-19 Epic flag)" )+
+  guides(color="none")
+mgbcensus
+# ggsave("~/Dropbox (Partners HealthCare)/R files/covid/MGBcensus.jpg", plot = last_plot(), device = "jpeg",
+#        scale = 1,  units = c("in"),height = 8.67, width = 8.67,
+#        dpi = 160, limitsize = TRUE)
+ggsave("~/Dropbox (Partners HealthCare)/R files/covid/MGBcensus.pdf")
+ggsave("~/Dropbox (Partners HealthCare)/R files/covid/MGBcensus.png")
+
 
 
 
@@ -221,7 +318,7 @@ ggplot( aes(x=date, group=year, color=year)) +
 
 
  
-load(file="mdph.deaths.Rdata") 
+load(file="~/Dropbox (Partners HealthCare)/GitHub/MA-MGB-Covid-Analyses/mdph.deaths.Rdata") 
  deaths.year<-
    rbind(
      mdph.deaths %>% mutate(year = "Current"),
